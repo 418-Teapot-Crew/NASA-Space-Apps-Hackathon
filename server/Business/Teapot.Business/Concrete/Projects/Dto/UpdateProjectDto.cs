@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Teapot.Business.Concrete.Projects.Dto
 {
-    internal class UpdateProjectDto
+    public class UpdateProjectDto
     {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int OwnerId { get; set; }
     }
 }

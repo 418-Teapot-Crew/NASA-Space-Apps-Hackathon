@@ -7,9 +7,9 @@ namespace Teapot.Business.Concrete.Auths
 {
     public interface IAuthService
     {
-        Task<IDataResult<LoggedInDto>> Login(LoginDto loginDto);
-        Task<IDataResult<LoggedInDto>> Register(RegisterDto registerDto);
-        IResult UserExists(string email);
+        Task<IDataResult<AppUser>> Login(LoginDto loginDto);
+        Task<IDataResult<AppUser>> Register(RegisterDto registerDto);
+        Task<IResult> UserExists(string email);
         Task<IDataResult<AccessToken>> CreateAccessToken(AppUser user);
     }
 }

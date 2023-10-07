@@ -11,7 +11,7 @@ export default function AuthLayout({ children }) {
     <main className={comfortaa.className}>
       <Toaster />
       <div className="w-full h-screen grid grid-cols-2">
-        <div className="bg-[#18181B] text-[#ffffff] flex flex-col justify-between py-5 px-10">
+        <div className="bg-[#18181B] text-[#ffffff] flex flex-col justify-between py-2 px-10">
           <Link href="/" className="block w-[100px] h-[100px]">
             <img
               src="./assets/team-logo-black.png"

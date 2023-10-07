@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teapot.Business", "Business
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teapot.Core", "Core\Teapot.Core\Teapot.Core.csproj", "{FA1EA242-6645-4BAC-982F-F2C8ED4D61BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teapot.WebAPI", "Teapot.WebAPI\Teapot.WebAPI.csproj", "{8030F45A-7D27-44BE-BADF-C764C5653E35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{FA1EA242-6645-4BAC-982F-F2C8ED4D61BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA1EA242-6645-4BAC-982F-F2C8ED4D61BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA1EA242-6645-4BAC-982F-F2C8ED4D61BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8030F45A-7D27-44BE-BADF-C764C5653E35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8030F45A-7D27-44BE-BADF-C764C5653E35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8030F45A-7D27-44BE-BADF-C764C5653E35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8030F45A-7D27-44BE-BADF-C764C5653E35}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

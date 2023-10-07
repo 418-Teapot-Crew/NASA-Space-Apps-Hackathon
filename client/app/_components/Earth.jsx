@@ -29,15 +29,8 @@ export default function EartCanvas() {
     <Canvas>
       <ambientLight intensity={0.1} />
       <directionalLight intensity={2.5} position={[1, 0.5, 0.25]} />
-      <Suspense
-        fallback={() => (
-          <div className="bg-black text-white h-screen w-full fixed top-0 left-0">
-            Loading
-          </div>
-        )}
-      >
-        <Earth />
-      </Suspense>
+
+      <Earth />
     </Canvas>
   );
 }

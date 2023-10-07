@@ -6,10 +6,13 @@ export default function AuthLayout({ children }) {
       <Toaster />
       <div className="bg-red-200 w-full h-screen grid grid-cols-2">
         <div className="bg-[#18181B] text-[#ffffff] flex flex-col justify-between p-10">
-          <h1 className="tracking-widest text-xl">
-            {/* <Logo className="text-2xl" /> */}
-            Logo
-          </h1>
+          <div className="w-[100px] h-[100px]">
+            <img
+              src="./assets/team-logo.png"
+              className="w-full h-full object-contain"
+              alt=""
+            />
+          </div>
           <p className="font-light tracking-widest">
             Acme Inc “This library has saved me countless hours of work and
             helped me deliver stunning designs to my clients faster than ever

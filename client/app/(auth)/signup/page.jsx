@@ -11,23 +11,17 @@ const custom_input =
 const Signup = () => {
   const [formData, setFormData] = useState({});
   const router = useRouter();
-  /*   const handleChange = (e: any) => {
+
+  const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    await createUser(formData);
-  }; */
-
-  const handleChange = (e) => {
-    console.log(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    console.log(e.target.value);
+    // await createUser(formData);
+    console.log(formData);
   };
 
   return (

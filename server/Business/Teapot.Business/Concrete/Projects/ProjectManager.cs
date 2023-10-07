@@ -35,7 +35,7 @@ namespace Teapot.Business.Concrete.Projects
             if (projectToDelete != null)
             {
                 _context.Projects.Remove(projectToDelete);
-                return new SuccessResult();
+                return new SuccessResult("project deleted");
 
             }
             return new ErrorResult("project cannot find");

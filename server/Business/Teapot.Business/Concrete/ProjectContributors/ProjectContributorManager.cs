@@ -6,29 +6,64 @@ using System.Text;
 using System.Threading.Tasks;
 using Teapot.Business.Concrete.ProjectContributors.Dto;
 using Teapot.Entities.Concrete;
+using Teapot.DataAccess.Contexts;
+using Teapot.Business.Concrete.Messages.Dto;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Teapot.Business.Concrete.ProjectContributors
 {
     public class ProjectContributorManager : IProjectContributorService
     {
-        public Task<IDataResult<ProjectContributor>> Add(AddProjectContributorDto addProjectContributorDto)
+
+        private readonly Teapot418DbContext _context;
+
+        public ProjectContributorManager(Teapot418DbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task<IResult> Delete(int id)
+        public async Task<IDataResult<ProjectContributor>> Add(AddProjectContributorDto addProjectContributorDto)
         {
-            throw new NotImplementedException();
+            var projectContributorToAdd = await _context.ProjectContributors.AddAsync(new ProjectContributor()
+            {
+                ContributorId = addProjectContributorDto.ContributorId,
+                ProjectId = addProjectContributorDto.ProjectId
+            });
+            await _context.SaveChangesAsync();
+            return new SuccessDataResult<ProjectContributor>(projectContributorToAdd.Entity, "project contributer added");
         }
 
-        public Task<IDataResult<List<ProjectContributor>>> GetAll()
+        public async Task<IResult> Delete(int id)
         {
-            throw new NotImplementedException();
+            var projectContributorToDelete = await _context.ProjectContributors.Where(p => p.Id == id).FirstOrDefaultAsync();
+            if (projectContributorToDelete != null)
+            {
+                _context.ProjectContributors.Remove(projectContributorToDelete);
+                return new SuccessResult("project contributor deleted");
+
+            }
+            return new ErrorResult("project contributor cannot find");
         }
 
-        public Task<IDataResult<List<AppUser>>> GetContributorsByProjectId(int projectId)
+        public async Task<IDataResult<List<ProjectContributor>>> GetAll()
         {
-            throw new NotImplementedException();
+            var projectContributors = await _context.ProjectContributors.ToListAsync();
+            if (projectContributors != null)
+            {
+                return new SuccessDataResult<List<ProjectContributor>>(projectContributors, "project contributers listed");
+            }
+            return new ErrorDataResult<List<ProjectContributor>>("project contributers cannot listed");
+        }
+
+        public async Task<IDataResult<List<AppUser>>> GetContributorsByProjectId(int projectId)
+        {
+           var contributors = await _context.ProjectContributors.Where(p => p.ProjectId == projectId).Select(p => p.Contributor).ToListAsync();
+            if (contributors != null)
+            {
+                return new SuccessDataResult<List<AppUser>>(contributors, "project contributers listed");
+            }
+            return new ErrorDataResult<List<AppUser>>("project contributers cannot listed");
         }
     }
 }

@@ -3,7 +3,7 @@ import ParticlesBg from "particles-bg";
 import React from "react";
 
 const ParticleBg = () => {
-  return <ParticlesBg type="cobweb" color="#FFFFFF" num={50} bg={true} />;
+  return <ParticlesBg color="#0728AF" num={50} type="cobweb" bg={true} />;
 };
 
 export default ParticleBg;

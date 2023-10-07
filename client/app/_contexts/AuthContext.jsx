@@ -8,6 +8,8 @@ export const INITIAL_STATE = {
   redirect_uri: process.env.NEXT_PUBLIC_REDIRECT_URI,
   client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
   proxy_url: process.env.NEXT_PUBLIC_PROXY_URL,
+  google_client_secret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
+  google_client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
 };
 
 // console.log(INITIAL_STATE);

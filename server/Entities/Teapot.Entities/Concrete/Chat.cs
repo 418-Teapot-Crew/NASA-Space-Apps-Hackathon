@@ -12,7 +12,7 @@ namespace Teapot.Entities.Concrete
         public int Id { get; set; }
         public User ProjectOwner { get; set; }
         public User Contributer { get; set; }
-        public ICollection<String> Messages { get; set; }   
+        public ICollection<Message> Messages { get; set; }   
 
     }
 }

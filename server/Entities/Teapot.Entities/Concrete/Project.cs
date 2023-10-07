@@ -3,10 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Teapot.Core.Entity.Abstract;
 
 namespace Teapot.Entities.Concrete
 {
-    internal class Project
+    public class Project : IEntity
     {
+
+        public int Id { get; set; }    
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int OwnerId { get; set; }
+        public User Owner { get; set; }
+        public ICollection<User> Contributers { get; set; }
+
+
+
     }
 }

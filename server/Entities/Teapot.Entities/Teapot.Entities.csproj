@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Concrete\" />
+    <ProjectReference Include="..\..\Core\Teapot.Core\Teapot.Core.csproj" />
   </ItemGroup>
 
 </Project>

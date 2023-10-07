@@ -36,7 +36,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero
         };
     });
-builder.Services.AddCors(opt => opt.AddDefaultPolicy(p => { p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }));
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "_myAllowSpecificOrigins",
+                      builder =>
+                      {
+                          builder.SetIsOriginAllowed(_ => true)
+                                 .AllowAnyHeader()
+                                 .AllowAnyMethod()
+                                 .AllowCredentials();
+
+                      });
+});
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.RegisterBusinessServices();
 
@@ -56,9 +69,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.UseCors(opt =>
-    opt.AllowAnyOrigin()
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowCredentials());
+app.UseCors("_myAllowSpecificOrigins");
 app.Run();

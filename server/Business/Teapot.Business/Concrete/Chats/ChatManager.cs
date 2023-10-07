@@ -35,6 +35,7 @@ namespace Teapot.Business.Concrete.Chats
             if (chatToDelete != null)
             {
                 _context.Chats.Remove(chatToDelete);
+                await _context.SaveChangesAsync();
                 return new SuccessResult("chat deleted");
 
             }

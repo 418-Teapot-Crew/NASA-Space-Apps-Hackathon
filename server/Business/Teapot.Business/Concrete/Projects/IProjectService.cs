@@ -14,7 +14,7 @@ namespace Teapot.Business.Concrete.Projects
     {
         Task<IDataResult<Project>> Add(AddProjectDto addProjectDto);
         Task<IDataResult<Project>> GetById(int id);
-        Task<IDataResult<List<Project>>> GetAll();
+        Task<IDataResult<List<ProjectListDto>>> GetAll();
         Task<IResult> Delete(int id);
         Task<IDataResult<Project>> Update(int id,UpdateProjectDto updateProjectDto);
     }

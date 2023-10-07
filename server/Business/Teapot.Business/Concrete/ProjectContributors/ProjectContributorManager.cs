@@ -40,6 +40,7 @@ namespace Teapot.Business.Concrete.ProjectContributors
             if (projectContributorToDelete != null)
             {
                 _context.ProjectContributors.Remove(projectContributorToDelete);
+                await _context.SaveChangesAsync();
                 return new SuccessResult("project contributor deleted");
 
             }

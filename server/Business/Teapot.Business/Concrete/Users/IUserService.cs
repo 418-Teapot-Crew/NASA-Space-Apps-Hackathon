@@ -9,10 +9,10 @@ namespace Teapot.Business.Concrete.Users
     {
 
         Task<IDataResult<AppUser>> Add(AppUser addUserDto);
-        Task<IDataResult<AppUser>> GetById(int id);
-        Task<IDataResult<List<AppUser>>> GetAll();
+        Task<IDataResult<UserListDto>> GetById(int id);
+        Task<IDataResult<List<UserListDto>>> GetAll();
         Task<IResult> Delete(int id);
-        Task<IDataResult<AppUser>> Update(int id, UpdateUserDto updateUserDto);
+        Task<IDataResult<UserListDto>> Update(int id, UpdateUserDto updateUserDto);
         Task<List<OperationClaim>> GetClaims(User user);
         Task<AppUser?> GetByMail(string email);
 

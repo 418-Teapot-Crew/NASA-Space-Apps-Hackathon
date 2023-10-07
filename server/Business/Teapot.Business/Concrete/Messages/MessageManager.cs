@@ -35,6 +35,7 @@ namespace Teapot.Business.Concrete.Messages
             if (messageToDelete != null)
             {
                 _context.Messages.Remove(messageToDelete);
+                await _context.SaveChangesAsync();
                 return new SuccessResult("message deleted");
 
             }

@@ -35,20 +35,35 @@ namespace Teapot.Business.Concrete.Projects
             if (projectToDelete != null)
             {
                 _context.Projects.Remove(projectToDelete);
+                await _context.SaveChangesAsync();
                 return new SuccessResult("project deleted");
 
             }
             return new ErrorResult("project cannot find");
         }
 
-        public async Task<IDataResult<List<Project>>> GetAll()
+        public async Task<IDataResult<List<ProjectListDto>>> GetAll()
         {
-            var projects = await _context.Projects.ToListAsync();
+            var projects = await _context.Projects.Select(p=> new ProjectListDto {
+                Description = p.Description,
+                Owner = new ProjectListOwnerDto { Id = p.Owner.Id, Email = p.Owner.Email, FirstName = p.Owner.FirstName, LastName = p.Owner.LastName},
+                Contributors = p.Contributors
+                    .Select(c => new ProjectListContributorDto
+                    {
+                        Id = c.ContributorId,
+                        Email = c.Contributor.Email,
+                        FirstName = c.Contributor.FirstName,
+                        LastName = c.Contributor.LastName,
+                    }),
+                Id = p.Id,
+                OwnerId = p.OwnerId,
+                Title = p.Title
+            }).ToListAsync();
             if (projects != null)
             {
-                return new SuccessDataResult<List<Project>>(projects, "project listed");
+                return new SuccessDataResult<List<ProjectListDto>>(projects, "project listed");
             }
-            return new ErrorDataResult<List<Project>>("projects cannot listed");
+            return new ErrorDataResult<List<ProjectListDto>>("projects cannot listed");
         }
 
         public async Task<IDataResult<Project>> GetById(int id)
@@ -70,7 +85,7 @@ namespace Teapot.Business.Concrete.Projects
                 projectToUpdate.Description = updateProjectDto.Description;
                 _context.Projects.Update(projectToUpdate);
                 await _context.SaveChangesAsync();
-                return new SuccessDataResult<Project>(projectToUpdate);    
+                return new SuccessDataResult<Project>(projectToUpdate,"project updated");    
             }
             return new ErrorDataResult<Project>("project cannot updated");
 

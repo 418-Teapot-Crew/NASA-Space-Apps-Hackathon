@@ -4,7 +4,7 @@ import { BiUser } from "react-icons/bi";
 
 const ProjectCard = ({ project }) => {
   return (
-    <div className="flex flex-col  w-80 pt-1 pb-2 px-2 bg-white dark:bg-dark-color  rounded-md shadow-md">
+    <div className="flex flex-col   w-80 pt-1 pb-2 px-2 bg-white   rounded-md shadow-md">
       <Link className="flex flex-col  gap-4 group" href={`/`}>
         <div className="relative flex    h-48 w-60 ">
           <Image

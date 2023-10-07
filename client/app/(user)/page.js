@@ -7,7 +7,9 @@ export default function Home() {
     <div className="h-screen relative flex items-center justify-between ">
       <ParticleBg />
       <div className=" flex flex-1 flex-col gap-4 text-center  text-black ">
-        <h1 className="m-0 font-extrabold text-8xl">418 TEAPOT</h1>
+        <h1 className="m-0 font-extrabold text-6xl">
+          <i>Let's</i> Explore Open Science Together
+        </h1>
         <p className="m-0 font-bold ">
           "Connecting Minds, Building Futures: Uniting Open Science Innovators
           with Enthusiastic Contributors!"

@@ -91,7 +91,7 @@ const Login = () => {
   return (
     <div className="flex flex-col justify-center gap-2 w-2/3">
       <Link
-        className="absolute bg-black text-sm text-white rounded-md right-7 top-7 font-light border shadow-lg px-4 py-2"
+        className="absolute bg-navbar text-sm text-white rounded-md right-7 top-7 font-light border shadow-lg px-4 py-2"
         href={"/signup"}
       >
         Sign Up

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Teapot.Business.Concrete.Messages.Dto
 {
-    internal class AddMessageDto
+    public class AddMessageDto
     {
+        public int SenderId { get; set; }
+        public int ChatId { get; set; }
     }
 }

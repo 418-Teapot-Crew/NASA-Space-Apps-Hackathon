@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Teapot.Business.Concrete.Auths;
 
 namespace Teapot.Business
 {
@@ -6,7 +7,7 @@ namespace Teapot.Business
     {
         public static IServiceCollection RegisterBusinessServices(this IServiceCollection services)
         {
-            //services.AddScoped<>
+            services.AddScoped<IAuthService, AuthManager>();
             return services;
         }
     }

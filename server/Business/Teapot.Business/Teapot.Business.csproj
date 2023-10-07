@@ -12,8 +12,4 @@
     <ProjectReference Include="..\..\Entities\Teapot.Entities\Teapot.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Concrete\" />
-  </ItemGroup>
-
 </Project>

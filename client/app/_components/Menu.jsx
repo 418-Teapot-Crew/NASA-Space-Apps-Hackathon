@@ -1,21 +1,26 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import { RxCross1 } from "react-icons/rx";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = usePathname();
   const toggle = () => setIsOpen(!isOpen);
   const variants = {
     hidden: { opacity: 0, x: 0, y: -200 },
     enter: { opacity: 1, x: 0, y: 0 },
     exit: { opacity: 0, x: 0, y: -200 },
   };
+
+  useEffect(() => setIsOpen(false), [router]);
+
   return (
-    <div className="text-white">
+    <div>
       <button onClick={toggle}>
         <BiMenu size={50} />
       </button>
@@ -26,7 +31,7 @@ const Menu = () => {
             initial="hidden"
             whileInView="enter"
             exit="exit"
-            className="fixed flex flex-col bg-black top-0 left-0 h-screen w-full "
+            className="fixed flex flex-col text-white bg-black top-0 left-0 h-screen w-full "
           >
             <div className="flex w-full h-24 py-4 items-center  px-24 top-0 flex-row justify-between">
               <div className="">
@@ -51,7 +56,9 @@ const Menu = () => {
                     <Link href={"/signup"}> Register</Link>
                   </li>
                   <li>Explore</li>
-                  <li>Projects</li>
+                  <li>
+                    <Link href={"/projects"}>Projects</Link>
+                  </li>
                 </ul>
               </div>
               <div className="flex gap-4 items-center flex-col">

@@ -6,9 +6,9 @@ const spaceMono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"] });
 
 export default function UserLayout({ children }) {
   return (
-    <div className={spaceMono.className}>
+    <main className={spaceMono.className}>
       <Header />
-      <body className={spaceMono.className}>{children}</body>
-    </div>
+      <div className=" px-24">{children}</div>
+    </main>
   );
 }

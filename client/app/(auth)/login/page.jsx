@@ -6,7 +6,7 @@ import { AiFillGithub } from 'react-icons/ai';
 import Link from 'next/link';
 
 const custom_input =
-  'py-2 text-sm text-slate-800 placeholder-slate-600 shadow-md border dark:border-black bg-gray-200 rounded-md px-3 dark:bg-black dark:text-slate-800 focus:outline-none focus:ring-1';
+  'py-2 text-sm text-slate-900 placeholder-slate-600 shadow-md border bg-gray-200 rounded-md px-3 dark:bg-black  focus:outline-none focus:ring-1';
 
 const Login = () => {
   const [formData, setFormData] = useState({});

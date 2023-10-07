@@ -1,10 +1,14 @@
 "use client";
-import Earth from "../_components/Earth";
-import ParticleBg from "../_components/ParticleBg";
+import dynamic from "next/dynamic";
+import Loading from "../_components/Loading";
+const Earth = dynamic(() => import("../_components/Earth"), {
+  loading: () => <Loading />,
+});
+const ParticleBg = dynamic(() => import("../_components/ParticleBg"));
 
 export default function Home() {
   return (
-    <div className="h-screen relative flex items-center justify-between ">
+    <div className="h-screen px-24 relative flex items-center justify-between ">
       <ParticleBg />
       <div className=" flex flex-1 flex-col gap-4 text-center  text-black ">
         <h1 className="m-0 font-extrabold text-6xl">

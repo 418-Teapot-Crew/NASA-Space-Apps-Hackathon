@@ -11,7 +11,7 @@ export default function UserLayout({ children }) {
   return (
     <main className={spaceMono.className}>
       <Header />
-      <div className="">{children}</div>
+      <div className="px-24">{children}</div>
     </main>
   );
 }

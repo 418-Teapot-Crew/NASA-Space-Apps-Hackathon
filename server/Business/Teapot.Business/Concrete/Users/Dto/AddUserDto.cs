@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Teapot.Business.Concrete.Users.Dto
 {
-    internal class AddUserDto
+    public class AddUserDto
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Teapot.Business.Concrete.ProjectContributors.Dto
 {
-    internal class AddProjectContributorDto
+    public class AddProjectContributorDto
     {
+        public int ProjectId { get; set; }
+        public int ContributorId { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Teapot.Core.Entity.Abstract;
+﻿using Teapot.Core.Entities.Abstract;
 
 namespace Teapot.Entities.Concrete
 {
@@ -8,7 +8,8 @@ namespace Teapot.Entities.Concrete
         public string Title { get; set; }
         public string Description { get; set; }
         public int OwnerId { get; set; }
-        public User Owner { get; set; }
+        public AppUser Owner { get; set; }
         public ICollection<ProjectContributor> Contributers { get; set; }
     }
 }
+// tarih, fotoğraf, 

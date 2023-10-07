@@ -1,11 +1,14 @@
-import { Inter } from "next/font/google";
+import { Comfortaa, Inter } from "next/font/google";
 import Link from "next/link";
 import React from "react";
 import { Toaster } from "react-hot-toast";
-const inter = Inter({ subsets: ["latin"] });
+const comfortaa = Comfortaa({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
 export default function AuthLayout({ children }) {
   return (
-    <React.Fragment className={inter.className}>
+    <main className={comfortaa.className}>
       <Toaster />
       <div className="bg-red-200 w-full h-screen grid grid-cols-2">
         <div className="bg-[#18181B] text-[#ffffff] flex flex-col justify-between p-10">
@@ -26,6 +29,6 @@ export default function AuthLayout({ children }) {
           {children}
         </div>
       </div>
-    </React.Fragment>
+    </main>
   );
 }

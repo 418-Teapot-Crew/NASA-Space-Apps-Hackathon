@@ -7,7 +7,7 @@ export default function Home() {
     <div className="h-screen relative flex items-center justify-between ">
       <ParticlesBg num={50} type="cobweb" bg={true} />
       <div className=" flex flex-col gap-4 text-center  text-black ">
-        <h1 className="m-0 font-bold  text-8xl">418 TEAPOT</h1>
+        <h1 className="m-0 font-extrabold text-8xl">418 TEAPOT</h1>
         <p className="m-0 font-bold ">
           "Connecting Minds, Building Futures: Uniting Open Science Innovators
           with Enthusiastic Contributors!"

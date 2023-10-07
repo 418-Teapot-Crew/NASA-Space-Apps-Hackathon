@@ -36,7 +36,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero
         };
     });
-
+builder.Services.AddCors(opt => opt.AddDefaultPolicy(p => { p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }));
 builder.Services.AddHttpContextAccessor();
 builder.Services.RegisterBusinessServices();
 
@@ -56,5 +56,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseCors(opt =>
+    opt.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials());
 app.Run();

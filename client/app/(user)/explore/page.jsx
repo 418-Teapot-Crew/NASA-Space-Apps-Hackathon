@@ -7,7 +7,7 @@ const Explore = () => {
   const data = getMockData();
 
   return (
-    <div className="pt-[120px] px-24 flex flex-col gap-4 items-center">
+    <div className="pt-[120px] flex flex-col gap-4 items-center">
       <h1 className="font-light italic text-lg px-12">
         "Unlocking the doors to a world of endless possibilities, our project
         utilizes artificial intelligence to seamlessly connect users with Open

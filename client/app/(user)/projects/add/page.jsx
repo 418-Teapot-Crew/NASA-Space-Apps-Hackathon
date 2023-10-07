@@ -1,5 +1,6 @@
 "use client";
 
+import ParticleBg from "../../../_components/ParticleBg";
 import React, { useState } from "react";
 import { BiCloudUpload } from "react-icons/bi";
 
@@ -20,10 +21,11 @@ const AddProject = () => {
 
   return (
     <div className="pt-[120px] flex flex-col gap-12 items-center">
+      <ParticleBg />
       <h1 className="font-bold text-4xl">Share Your Project</h1>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-2 w-1/2 p-12 rounded-md shadow-2xl"
+        className="flex flex-col  bg-white  gap-2 w-1/2 p-12 rounded-md shadow-2xl"
       >
         <input
           type="text"
@@ -38,6 +40,13 @@ const AddProject = () => {
           placeholder="Description"
           name="description"
           onChange={handleChange}
+          className="p-2 w-full rounded-sm border"
+        />
+        <input
+          type="text"
+          name="url"
+          onChange={handleChange}
+          placeholder="Project URL"
           className="p-2 w-full rounded-sm border"
         />
         <div className="flex items-center justify-center flex-1">

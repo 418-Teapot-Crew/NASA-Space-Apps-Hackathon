@@ -60,13 +60,17 @@ const Menu = () => {
                     </Link>
                   </li>
                   <li>
+                    <Link className="custom-link" href={"/profile"}>
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
                     <Link className="custom-link" href={"/login"}>
                       Login
                     </Link>
                   </li>
                   <li>
                     <Link href={"/signup"} className="custom-link">
-                      {" "}
                       Register
                     </Link>
                   </li>

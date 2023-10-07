@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Teapot.Core.Entity.Abstract;
+﻿using Teapot.Core.Entity.Abstract;
 
 namespace Teapot.Entities.Concrete
 {
@@ -11,9 +6,10 @@ namespace Teapot.Entities.Concrete
     {
 
         public int Id { get; set; }
+        public int SenderId { get; set; }
         public int ChatId { get; set; }
         public Chat Chat { get; set; }
-        public User Sender { get; set; }    
+        public User Sender { get; set; }
 
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Teapot.Business;
 using Teapot.DataAccess.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<Teapot418DbContext>(opt => opt
                     .UseNpgsql(builder.Configuration.GetConnectionString("Default"))
                     .UseSnakeCaseNamingConvention()
                     .EnableSensitiveDataLogging());
+
+builder.Services.RegisterBusinessServices();
 
 var app = builder.Build();
 

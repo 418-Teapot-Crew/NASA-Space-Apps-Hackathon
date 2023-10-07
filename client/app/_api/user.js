@@ -1,6 +1,6 @@
 import { instance as axios } from "./axiosInstance";
 
-const createUser = async (data) => axios.post("/users", data);
+const createUser = async (data) => axios.post("/api/Auth/register", data);
 const deleteUser = async (id) => axios.delete(`/users/${id}`);
 const patchUser = async (id, data) => axios.patch(`/users/${id}`, data);
 

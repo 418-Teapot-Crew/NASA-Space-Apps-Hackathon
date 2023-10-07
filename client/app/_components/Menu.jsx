@@ -6,9 +6,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { CgMenuMotion } from "react-icons/cg";
 import { usePathname } from "next/navigation";
+import { useAuthContext } from "../_contexts/AuthContext";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { state, dispatch } = useAuthContext();
   const path = usePathname();
   const toggle = () => setIsOpen(!isOpen);
   const variants = {
@@ -59,21 +61,38 @@ const Menu = () => {
                       Home
                     </Link>
                   </li>
-                  <li>
-                    <Link className="custom-link" href={"/profile"}>
-                      Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="custom-link" href={"/login"}>
-                      Login
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href={"/signup"} className="custom-link">
-                      Register
-                    </Link>
-                  </li>
+                  {state?.isLoggedIn ? (
+                    <>
+                      <li>
+                        <Link className="custom-link" href={"/profile"}>
+                          Profile
+                        </Link>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className="custom-link"
+                          onClick={() => dispatch({ type: "LOGOUT" })}
+                        >
+                          Logout
+                        </button>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li>
+                        <Link className="custom-link" href={"/login"}>
+                          Login
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href={"/signup"} className="custom-link">
+                          Register
+                        </Link>
+                      </li>
+                    </>
+                  )}
+
                   <li>
                     <Link className="custom-link" href={"/explore"}>
                       Explore

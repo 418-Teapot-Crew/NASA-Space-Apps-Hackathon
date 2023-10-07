@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Teapot.Core.Entity.Abstract;
+﻿using Teapot.Core.Entity.Abstract;
 
 namespace Teapot.Entities.Concrete
 {
@@ -15,10 +10,6 @@ namespace Teapot.Entities.Concrete
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public ICollection<Project> Projects { get; set; }
-
-
-
-
+        public ICollection<ProjectContributor> Projects { get; set; }
     }
 }

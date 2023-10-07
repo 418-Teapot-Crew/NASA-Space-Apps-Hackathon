@@ -1,4 +1,4 @@
-﻿using Teapot.Core.Entity.Abstract;
+﻿using Teapot.Core.Entities.Abstract;
 
 namespace Teapot.Entities.Concrete
 {
@@ -9,7 +9,7 @@ namespace Teapot.Entities.Concrete
         public int SenderId { get; set; }
         public int ChatId { get; set; }
         public Chat Chat { get; set; }
-        public User Sender { get; set; }
+        public AppUser Sender { get; set; }
 
     }
 }

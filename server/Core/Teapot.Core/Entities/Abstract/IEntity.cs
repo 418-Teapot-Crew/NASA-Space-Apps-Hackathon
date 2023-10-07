@@ -1,4 +1,4 @@
-﻿namespace Teapot.Core.Entity.Abstract
+﻿namespace Teapot.Core.Entities.Abstract
 {
     public interface IEntity
     {

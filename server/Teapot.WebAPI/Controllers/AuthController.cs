@@ -32,5 +32,14 @@ namespace Teapot.WebAPI.Controllers
                 return BadRequest(result);
             return Ok(result);
         }
+
+        //[HttpPost("github-login")]
+        //public async Task<IActionResult> GitHubLogin([FromBody] LoginDto loginDto)
+        //{
+        //    var result = await _authService.GithubLogin(loginDto);
+        //    if (!result.Success)
+        //        return BadRequest(result);
+        //    return Ok(result);
+        //}
     }
 }

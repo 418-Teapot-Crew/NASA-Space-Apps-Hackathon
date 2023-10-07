@@ -1,4 +1,4 @@
-﻿using Core.Utilities.Results;
+﻿using Teapot.Core.Utilities.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace Teapot.Business.Concrete.ProjectContributors
 {
     public class ProjectContributorManager : IProjectContributorService
     {
-        public Task<IDataResult<Project>> Add(AddProjectContributorDto addProjectContributorDto)
+        public Task<IDataResult<ProjectContributor>> Add(AddProjectContributorDto addProjectContributorDto)
         {
             throw new NotImplementedException();
         }
@@ -26,7 +26,7 @@ namespace Teapot.Business.Concrete.ProjectContributors
             throw new NotImplementedException();
         }
 
-        public Task<IDataResult<List<User>>> GetContributorsByProjectId(int projectId)
+        public Task<IDataResult<List<AppUser>>> GetContributorsByProjectId(int projectId)
         {
             throw new NotImplementedException();
         }

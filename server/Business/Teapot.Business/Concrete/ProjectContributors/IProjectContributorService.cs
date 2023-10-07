@@ -1,4 +1,4 @@
-﻿using Core.Utilities.Results;
+﻿using Teapot.Core.Utilities.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace Teapot.Business.Concrete.ProjectContributors
     {
         Task<IDataResult<ProjectContributor>> Add(AddProjectContributorDto addProjectContributorDto);
         Task<IDataResult<List<ProjectContributor>>> GetAll();
-        Task<IDataResult<List<User>>> GetContributorsByProjectId(int projectId);
+        Task<IDataResult<List<AppUser>>> GetContributorsByProjectId(int projectId);
         Task<IResult> Delete(int id);
 
     }

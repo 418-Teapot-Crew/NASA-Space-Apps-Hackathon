@@ -1,10 +1,7 @@
-﻿using Core.Utilities.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using Teapot.Business.Concrete.Users.Dto;
+using Teapot.Core.Entities.Concrete;
+using Teapot.Core.Utilities.Results;
 using Teapot.DataAccess.Contexts;
 using Teapot.Entities.Concrete;
 
@@ -20,32 +17,52 @@ namespace Teapot.Business.Concrete.Users
             _context = context;
         }
 
-        public async Task<IDataResult<User>> Add(AddUserDto addUserDto)
+        public async Task<IDataResult<AppUser>> Add(AppUser addUserDto)
         {
-            var user = await _context.Users.AddAsync(new User() { FirstName = addUserDto.FirstName,LastName = addUserDto.LastName, Email = addUserDto.Email, Password = addUserDto.Password});
-            return new SuccessDataResult<User>(user, "user added");
+            var user = await _context.Users.AddAsync(addUserDto);
+            return new SuccessDataResult<AppUser>(user.Entity, "user added");
         }
 
         public Task<IResult> Delete(int id)
         {
+            throw new NotImplementedException();
         }
 
-        public Task<IDataResult<List<User>>> GetAll()
+        public Task<IDataResult<List<AppUser>>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IDataResult<User>> GetById(int id)
+        public Task<IDataResult<AppUser>> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IDataResult<User>> Update(UpdateUserDto updateUserDto)
+        public async Task<AppUser?> GetByMail(string email)
+        {
+            return await _context.Users.Where(p => p.Email == email).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<OperationClaim>> GetClaims(User user)
+        {
+            var res = await _context
+                 .UserOperationClaims
+                 .Where(p => p.UserId == user.Id)
+                 .Select(p => new OperationClaim
+                 {
+                     Id = p.OperationClaimId,
+                     Name = p.OperationClaim.Name
+                 })
+                 .ToListAsync();
+            return res;
+        }
+
+        public Task<IDataResult<AppUser>> Update(UpdateUserDto updateUserDto)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IDataResult<User>> Update(int id, UpdateUserDto updateUserDto)
+        public Task<IDataResult<AppUser>> Update(int id, UpdateUserDto updateUserDto)
         {
             throw new NotImplementedException();
         }

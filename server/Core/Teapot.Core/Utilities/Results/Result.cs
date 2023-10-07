@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Utilities.Results
+namespace Teapot.Core.Utilities.Results
 {
     public class Result : IResult
     {
@@ -21,4 +21,3 @@ namespace Core.Utilities.Results
         public string Message { get; }
     }
 }
-    

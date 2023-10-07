@@ -1,11 +1,6 @@
-﻿using Core.Utilities.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Teapot.Business.Concrete.Auths.Dto;
-using Teapot.Business.Concrete.Users.Dto;
+﻿using Teapot.Business.Concrete.Users.Dto;
+using Teapot.Core.Entities.Concrete;
+using Teapot.Core.Utilities.Results;
 using Teapot.Entities.Concrete;
 
 namespace Teapot.Business.Concrete.Users
@@ -13,11 +8,13 @@ namespace Teapot.Business.Concrete.Users
     public interface IUserService
     {
 
-        Task<IDataResult<User>> Add(AddUserDto addUserDto);
-        Task<IDataResult<User>> GetById(int id);
-        Task<IDataResult<List<User>>> GetAll();
+        Task<IDataResult<AppUser>> Add(AppUser addUserDto);
+        Task<IDataResult<AppUser>> GetById(int id);
+        Task<IDataResult<List<AppUser>>> GetAll();
         Task<IResult> Delete(int id);
-        Task<IDataResult<User>> Update(int id,UpdateUserDto updateUserDto);
+        Task<IDataResult<AppUser>> Update(int id, UpdateUserDto updateUserDto);
+        Task<List<OperationClaim>> GetClaims(User user);
+        Task<AppUser?> GetByMail(string email);
 
     }
 }

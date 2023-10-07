@@ -15,6 +15,7 @@ namespace Teapot.DataAccess.Contexts
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectContributor> ProjectContributors { get; set; }
         public DbSet<AppUser> Users { get; set; }
+        public DbSet<Invite> Invites { get; set; }
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
         public DbSet<ProjectFile> ProjectFiles { get; set; }

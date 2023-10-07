@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Teapot.Core\Teapot.Core.csproj" />
+    <ProjectReference Include="..\..\Entities\Teapot.Entities\Teapot.Entities.csproj" />
   </ItemGroup>
 
 </Project>

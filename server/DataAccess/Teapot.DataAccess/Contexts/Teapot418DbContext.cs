@@ -10,7 +10,9 @@ namespace Teapot.DataAccess.Contexts
 {
     public class Teapot418DbContext : DbContext
     {
-       
+        public Teapot418DbContext(DbContextOptions options) : base(options)
+        {
+        }
 
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Message> Messages { get; set; }

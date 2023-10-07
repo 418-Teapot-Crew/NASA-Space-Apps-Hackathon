@@ -1,18 +1,21 @@
-import { Toaster } from 'react-hot-toast';
-
+import { Inter } from "next/font/google";
+import Link from "next/link";
+import React from "react";
+import { Toaster } from "react-hot-toast";
+const inter = Inter({ subsets: ["latin"] });
 export default function AuthLayout({ children }) {
   return (
-    <>
+    <React.Fragment className={inter.className}>
       <Toaster />
       <div className="bg-red-200 w-full h-screen grid grid-cols-2">
         <div className="bg-[#18181B] text-[#ffffff] flex flex-col justify-between p-10">
-          <div className="w-[100px] h-[100px]">
+          <Link href="/" className="block w-[100px] h-[100px]">
             <img
               src="./assets/team-logo.png"
               className="w-full h-full object-contain"
               alt=""
             />
-          </div>
+          </Link>
           <p className="font-light tracking-widest">
             Acme Inc “This library has saved me countless hours of work and
             helped me deliver stunning designs to my clients faster than ever
@@ -23,6 +26,6 @@ export default function AuthLayout({ children }) {
           {children}
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 }

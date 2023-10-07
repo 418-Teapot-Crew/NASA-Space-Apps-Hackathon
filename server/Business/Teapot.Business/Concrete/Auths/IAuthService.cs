@@ -11,5 +11,6 @@ namespace Teapot.Business.Concrete.Auths
         Task<IDataResult<AppUser>> Register(RegisterDto registerDto);
         Task<IResult> UserExists(string email);
         Task<IDataResult<AccessToken>> CreateAccessToken(AppUser user);
+        Task<IDataResult<AppUser>> GithubLogin(GithubLoginDto githubLoginDto);
     }
 }

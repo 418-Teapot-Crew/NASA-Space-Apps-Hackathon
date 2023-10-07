@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Octokit" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Core\Teapot.Core\Teapot.Core.csproj" />
     <ProjectReference Include="..\..\DataAccess\Teapot.DataAccess\Teapot.DataAccess.csproj" />
     <ProjectReference Include="..\..\Entities\Teapot.Entities\Teapot.Entities.csproj" />

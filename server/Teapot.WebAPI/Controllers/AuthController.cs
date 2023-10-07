@@ -39,7 +39,6 @@ namespace Teapot.WebAPI.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            var x = _httpContextAccessor;
             var userToLogin = await _authService.Login(loginDto);
             if (!userToLogin.Success)
             {
@@ -55,13 +54,22 @@ namespace Teapot.WebAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        //[HttpPost("github-login")]
-        //public async Task<IActionResult> GitHubLogin([FromBody] LoginDto loginDto)
-        //{
-        //    var result = await _authService.GithubLogin(loginDto);
-        //    if (!result.Success)
-        //        return BadRequest(result);
-        //    return Ok(result);
-        //}
+        [HttpPost("github-login")]
+        public async Task<IActionResult> GitHubLogin([FromBody] GithubLoginDto githubLoginDto)
+        {
+            var userToLogin = await _authService.GithubLogin(githubLoginDto);
+            if (!userToLogin.Success)
+            {
+                return BadRequest(userToLogin.Message);
+            }
+
+            var result = await _authService.CreateAccessToken(userToLogin.Data);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest(result.Message);
+        }
     }
 }

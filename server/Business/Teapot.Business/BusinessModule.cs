@@ -4,6 +4,7 @@ using Teapot.Business.Concrete.Chats;
 using Teapot.Business.Concrete.Invites;
 using Teapot.Business.Concrete.Messages;
 using Teapot.Business.Concrete.ProjectContributors;
+using Teapot.Business.Concrete.ProjectImages;
 using Teapot.Business.Concrete.Projects;
 using Teapot.Business.Concrete.Users;
 using Teapot.Business.Images;
@@ -24,6 +25,7 @@ namespace Teapot.Business
             services.AddScoped<IMessageService, MessageManager>();
             services.AddScoped<IProjectContributorService, ProjectContributorManager>();
             services.AddScoped<IImageService, CloudinaryImageService>();
+            services.AddScoped<IProjectFileService, ProjectFileManager>();
 
             services.AddScoped<IInviteService, InviteManager>();
 

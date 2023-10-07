@@ -11,6 +11,7 @@ const custom_input =
 
 const Signup = () => {
   const [formData, setFormData] = useState({});
+  const { state, dispatch } = useAuthContext();
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -24,55 +25,6 @@ const Signup = () => {
     // await createUser(formData);
     console.log(formData);
   };
-
-  const { state, dispatch } = useAuthContext();
-  const [data, setData] = useState({ errorMessage: "", isLoading: false });
-
-  const { client_id, redirect_uri } = state;
-
-  useEffect(() => {
-    // After requesting Github access, Github redirects back to your app with a code parameter
-    const url = window.location.href;
-    const hasCode = url.includes("?code=");
-    console.log("hello 1");
-
-    // If Github API returns the code parameter
-    if (hasCode) {
-      console.log("hello 2");
-      const newUrl = url.split("?code=");
-      window.history.pushState({}, null, newUrl[0]);
-      setData({ ...data, isLoading: true });
-
-      const requestData = {
-        code: newUrl[1],
-      };
-
-      const proxy_url = state.proxy_url;
-
-      // Use code parameter and other parameters to make POST request to proxy_server
-      fetch(proxy_url, {
-        method: "POST",
-        body: JSON.stringify(requestData),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          dispatch({
-            type: "LOGIN",
-            payload: { user: data, isLoggedIn: true },
-          });
-        })
-        .catch((error) => {
-          setData({
-            isLoading: false,
-            errorMessage: "Sorry! Login failed",
-          });
-        });
-    }
-  }, [state, dispatch, data]);
-
-  if (state.isLoggedIn) {
-    router.push("/");
-  }
 
   return (
     <div className="flex flex-col justify-center gap-1 w-2/3">
@@ -134,32 +86,6 @@ const Signup = () => {
           >
             Create
           </button>
-
-          <div className="border-b border-gray-400 relative text-center my-3">
-            <span className="bg-white px-2 text-gray-400 text-sm  absolute -translate-x-1/2 -translate-y-1/2 tracking-wider">
-              OR CONTINUE WITH
-            </span>
-          </div>
-
-          {data.isLoading ? (
-            <span
-              className="bg-white w-full text-black shadow-xl border py-2 text-sm font-light rounded flex gap-1 items-center justify-center tracking-wider"
-              type="button"
-            >
-              Loading
-            </span>
-          ) : (
-            <a
-              className="bg-white w-full text-black shadow-xl border py-2 text-sm font-light rounded flex gap-1 items-center justify-center tracking-wider"
-              type="button"
-              href={`https://github.com/login/oauth/authorize?scope=user&client_id=${client_id}&redirect_uri=${redirect_uri}`}
-              onClick={() => {
-                setData({ ...data, errorMessage: "" });
-              }}
-            >
-              <AiFillGithub className="text-xl" /> Github
-            </a>
-          )}
         </form>
       </div>
     </div>

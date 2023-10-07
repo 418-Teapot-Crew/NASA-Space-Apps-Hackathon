@@ -1,8 +1,8 @@
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-export const baseURL = "http://localhost:4000";
-console.log("baseURL", baseURL);
+export const baseURL =
+  process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:4000";
 
 const instance = axios.create({
   baseURL,

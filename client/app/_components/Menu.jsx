@@ -22,7 +22,7 @@ const Menu = () => {
   return (
     <div>
       <button onClick={toggle}>
-        <BiMenu size={50} />
+        <BiMenu className="text-navbar" size={50} />
       </button>
       <AnimatePresence mode="wait">
         {isOpen && (
@@ -31,16 +31,11 @@ const Menu = () => {
             initial="hidden"
             whileInView="enter"
             exit="exit"
-            className="fixed flex flex-col text-white bg-black top-0 left-0 h-screen w-full "
+            className="fixed flex flex-col text-white bg-navbar top-0 left-0 h-screen w-full "
           >
-            <div className="flex w-full h-24 py-4 items-center  px-24 top-0 flex-row justify-between">
-              <div className="">
-                <Image
-                  src={"/assets/team-logo.png"}
-                  width={64}
-                  height={64}
-                  alt=""
-                />
+            <div className="flex w-full py-5 items-center  px-10 top-0 flex-row justify-between">
+              <div className="w-[100px] h-auto">
+                <img src="/assets/team-logo.png" alt="" />
               </div>
               <button onClick={toggle}>
                 <RxCross1 size={45} />

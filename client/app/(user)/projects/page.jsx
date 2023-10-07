@@ -6,8 +6,8 @@ const Projects = () => {
   const data = getMockData();
   return (
     <>
-      <div className="pt-24 mx-auto">
-        <div className="grid grid-cols-3 gap-y-12">
+      <div className="pt-[120px] mx-auto">
+        <div className="grid grid-cols-3 gap-y-12 py-20">
           {data.projects.map((project) => (
             <ProjectCard project={project} />
           ))}

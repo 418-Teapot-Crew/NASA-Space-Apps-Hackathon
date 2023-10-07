@@ -12,7 +12,7 @@ const project = {
 const ProjectDetail = ({ params }) => {
   console.log("oarams", params);
   return (
-    <div className="pt-32 font-light min-h-screen">
+    <div className="pt-[180px] font-light min-h-screen">
       <div className="flex gap-10">
         <div className="w-[350px] h-[350px] bg-white shadow-lg">
           <img

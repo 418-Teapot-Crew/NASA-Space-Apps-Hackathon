@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { BiMenu } from "react-icons/bi";
 import { RxCross1 } from "react-icons/rx";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { CgMenuMotion } from "react-icons/cg";
 import { usePathname } from "next/navigation";
 
 const Menu = () => {
@@ -22,8 +22,8 @@ const Menu = () => {
   return (
     <div>
       <button onClick={toggle}>
-        <BiMenu
-          className={` ${path === "/" ? "text-navbar" : "text-white"}`}
+        <CgMenuMotion
+          className={` ${path === "/" ? "text-navbar" : "text-black"}`}
           size={50}
         />
       </button>
@@ -31,12 +31,13 @@ const Menu = () => {
         {isOpen && (
           <motion.div
             variants={variants}
+            transition={{ ease: "easeIn" }}
             initial="hidden"
             whileInView="enter"
             exit="exit"
-            className="fixed flex flex-col text-white bg-navbar top-0 left-0 h-screen w-full "
+            className="fixed flex filter backdrop-filter backdrop-blur-2xl bg-opacity-95 flex-col text-white bg-black top-0 left-0 h-screen w-full "
           >
-            <div className="flex w-full py-2 items-center  px-10 top-0 flex-row justify-between">
+            <div className="flex w-full py-2 items-center  px-24 top-0 flex-row justify-between">
               <div className="flex flex-row gap-5 items-center text-center ">
                 <div className="w-[100px] h-auto">
                   <img src="/assets/team-logo.png" alt="" />
@@ -53,6 +54,11 @@ const Menu = () => {
             <div className="flex flex-row h-[75vh] w-full justify-around items-center">
               <div>
                 <ul className="flex gap-6 text-6xl flex-col items-center">
+                  <li>
+                    <Link className="custom-link" href={"/"}>
+                      Home
+                    </Link>
+                  </li>
                   <li>
                     <Link className="custom-link" href={"/login"}>
                       Login

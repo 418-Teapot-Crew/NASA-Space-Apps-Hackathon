@@ -5,6 +5,8 @@ import { toast } from "react-hot-toast";
 import { AiFillGithub } from "react-icons/ai";
 import Link from "next/link";
 import { useAuthContext } from "../../_contexts/AuthContext";
+import { useGoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
+import { FcGoogle } from "react-icons/fc";
 
 const custom_input =
   "py-2 text-sm text-slate-900 placeholder-slate-600 shadow-md border bg-gray-200 rounded-md px-3   focus:outline-none focus:ring-1";
@@ -88,6 +90,14 @@ const Login = () => {
     router.push("/");
   }
 
+  const loginGoogle = useGoogleLogin({
+    onSuccess: (codeResponse) => console.log(codeResponse),
+    onError: () => {
+      console.log("Login Failed");
+    },
+    flow: "auth-code",
+  });
+
   return (
     <div className="flex flex-col justify-center gap-2 w-2/3">
       <Link
@@ -136,6 +146,14 @@ const Login = () => {
             </span>
           </div>
 
+          <button
+            type="button"
+            className="bg-white w-full text-black shadow-xl border py-2 text-sm font-light rounded flex gap-1 items-center justify-center tracking-wider"
+            onClick={() => loginGoogle()}
+          >
+            <FcGoogle className="text-xl" /> Google
+          </button>
+
           {data.isLoading ? (
             <div
               className="bg-white w-full text-black shadow-xl border py-2 text-sm font-light rounded flex gap-1 items-center justify-center tracking-wider"
@@ -156,6 +174,7 @@ const Login = () => {
             </a>
           )}
         </form>
+        <div />
       </div>
     </div>
   );

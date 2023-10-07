@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Google.Apis.Auth;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Web;
 using Teapot.Business.Concrete.Auths.Dto;
 using Teapot.Business.Concrete.Users;
@@ -143,5 +145,20 @@ namespace Teapot.Business.Concrete.Auths
 
             return new SuccessDataResult<AppUser>(createdUser.Data, "Success");
         }
+
+        //public async Task<IDataResult<AppUser>> GoogleLoginAsync(string idToken, int accessTokenLifeTime)
+        //{
+        //    var settings = new GoogleJsonWebSignature.ValidationSettings()
+        //    {
+        //        Audience = new List<string> { _configuration["ExternalLoginSettings:Google:Client_ID"] }
+        //    };
+
+        //    var payload = await GoogleJsonWebSignature.ValidateAsync(idToken, settings);
+
+        //    var info = new UserLoginInfo("GOOGLE", payload.Subject, "GOOGLE");
+        //    Domain.Entities.Identity.AppUser user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+
+        //    return await CreateUserExternalAsync(user, payload.Email, payload.Name, info, accessTokenLifeTime);
+        //}
     }
 }

@@ -21,6 +21,96 @@ namespace Teapot.DataAccess.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Teapot.Core.Entities.Concrete.OperationClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_operation_claims");
+
+                    b.ToTable("operation_claims", (string)null);
+                });
+
+            modelBuilder.Entity("Teapot.Core.Entities.Concrete.UserOperationClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OperationClaimId")
+                        .HasColumnType("integer")
+                        .HasColumnName("operation_claim_id");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_user_operation_claims");
+
+                    b.HasIndex("OperationClaimId")
+                        .HasDatabaseName("ix_user_operation_claims_operation_claim_id");
+
+                    b.ToTable("user_operation_claims", (string)null);
+                });
+
+            modelBuilder.Entity("Teapot.Entities.Concrete.AppUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("email");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("first_name");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("last_name");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("bytea")
+                        .HasColumnName("password_hash");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("bytea")
+                        .HasColumnName("password_salt");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean")
+                        .HasColumnName("status");
+
+                    b.HasKey("Id")
+                        .HasName("pk_users");
+
+                    b.ToTable("users", (string)null);
+                });
+
             modelBuilder.Entity("Teapot.Entities.Concrete.Chat", b =>
                 {
                     b.Property<int>("Id")
@@ -120,110 +210,48 @@ namespace Teapot.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ContributorId")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<int>("ContributorId")
+                        .HasColumnType("integer")
                         .HasColumnName("contributor_id");
-
-                    b.Property<int>("ContributorId1")
-                        .HasColumnType("integer")
-                        .HasColumnName("contributor_id1");
-
-                    b.Property<string>("ProjectId")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("project_id");
-
-                    b.Property<int>("ProjectId1")
-                        .HasColumnType("integer")
-                        .HasColumnName("project_id1");
-
-                    b.HasKey("Id")
-                        .HasName("pk_project_contributor");
-
-                    b.HasIndex("ContributorId1")
-                        .HasDatabaseName("ix_project_contributor_contributor_id1");
-
-                    b.HasIndex("ProjectId1")
-                        .HasDatabaseName("ix_project_contributor_project_id1");
-
-                    b.ToTable("project_contributor", (string)null);
-                });
-
-            modelBuilder.Entity("Teapot.Entities.Concrete.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("email");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("first_name");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("last_name");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("password");
-
-                    b.HasKey("Id")
-                        .HasName("pk_users");
-
-                    b.ToTable("users", (string)null);
-                });
-
-            modelBuilder.Entity("Teapot.Entities.Concrete.UserProject", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("integer")
                         .HasColumnName("project_id");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
-                        .HasColumnName("user_id");
-
                     b.HasKey("Id")
-                        .HasName("pk_user_projects");
+                        .HasName("pk_project_contributor");
+
+                    b.HasIndex("ContributorId")
+                        .HasDatabaseName("ix_project_contributor_contributor_id");
 
                     b.HasIndex("ProjectId")
-                        .HasDatabaseName("ix_user_projects_project_id");
+                        .HasDatabaseName("ix_project_contributor_project_id");
 
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_user_projects_user_id");
+                    b.ToTable("project_contributor", (string)null);
+                });
 
-                    b.ToTable("user_projects", (string)null);
+            modelBuilder.Entity("Teapot.Core.Entities.Concrete.UserOperationClaim", b =>
+                {
+                    b.HasOne("Teapot.Core.Entities.Concrete.OperationClaim", "OperationClaim")
+                        .WithMany()
+                        .HasForeignKey("OperationClaimId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_user_operation_claims_operation_claims_operation_claim_id");
+
+                    b.Navigation("OperationClaim");
                 });
 
             modelBuilder.Entity("Teapot.Entities.Concrete.Chat", b =>
                 {
-                    b.HasOne("Teapot.Entities.Concrete.User", "Contributer")
+                    b.HasOne("Teapot.Entities.Concrete.AppUser", "Contributer")
                         .WithMany()
                         .HasForeignKey("ContributerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_chats_users_contributer_id");
 
-                    b.HasOne("Teapot.Entities.Concrete.User", "ProjectOwner")
+                    b.HasOne("Teapot.Entities.Concrete.AppUser", "ProjectOwner")
                         .WithMany()
                         .HasForeignKey("ProjectOwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -244,7 +272,7 @@ namespace Teapot.DataAccess.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_messages_chats_chat_id");
 
-                    b.HasOne("Teapot.Entities.Concrete.User", "Sender")
+                    b.HasOne("Teapot.Entities.Concrete.AppUser", "Sender")
                         .WithMany()
                         .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -258,7 +286,7 @@ namespace Teapot.DataAccess.Migrations
 
             modelBuilder.Entity("Teapot.Entities.Concrete.Project", b =>
                 {
-                    b.HasOne("Teapot.Entities.Concrete.User", "Owner")
+                    b.HasOne("Teapot.Entities.Concrete.AppUser", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -270,44 +298,28 @@ namespace Teapot.DataAccess.Migrations
 
             modelBuilder.Entity("Teapot.Entities.Concrete.ProjectContributor", b =>
                 {
-                    b.HasOne("Teapot.Entities.Concrete.User", "Contributor")
+                    b.HasOne("Teapot.Entities.Concrete.AppUser", "Contributor")
                         .WithMany("Projects")
-                        .HasForeignKey("ContributorId1")
+                        .HasForeignKey("ContributorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_project_contributor_users_contributor_id1");
+                        .HasConstraintName("fk_project_contributor_users_contributor_id");
 
                     b.HasOne("Teapot.Entities.Concrete.Project", "Project")
-                        .WithMany("Contributers")
-                        .HasForeignKey("ProjectId1")
+                        .WithMany("Contributors")
+                        .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_project_contributor_projects_project_id1");
+                        .HasConstraintName("fk_project_contributor_projects_project_id");
 
                     b.Navigation("Contributor");
 
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("Teapot.Entities.Concrete.UserProject", b =>
+            modelBuilder.Entity("Teapot.Entities.Concrete.AppUser", b =>
                 {
-                    b.HasOne("Teapot.Entities.Concrete.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_user_projects_projects_project_id");
-
-                    b.HasOne("Teapot.Entities.Concrete.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_user_projects_users_user_id");
-
-                    b.Navigation("Project");
-
-                    b.Navigation("User");
+                    b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("Teapot.Entities.Concrete.Chat", b =>
@@ -317,12 +329,7 @@ namespace Teapot.DataAccess.Migrations
 
             modelBuilder.Entity("Teapot.Entities.Concrete.Project", b =>
                 {
-                    b.Navigation("Contributers");
-                });
-
-            modelBuilder.Entity("Teapot.Entities.Concrete.User", b =>
-                {
-                    b.Navigation("Projects");
+                    b.Navigation("Contributors");
                 });
 #pragma warning restore 612, 618
         }

@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { AiFillGithub } from "react-icons/ai";
 import Link from "next/link";
 import { useAuthContext } from "../../_contexts/AuthContext";
+import { createUser } from "../../_api/user"
 
 const custom_input =
   "py-2 text-sm text-slate-900 placeholder-slate-600 shadow-md border bg-gray-200 rounded-md px-3   focus:outline-none focus:ring-1";
@@ -22,7 +23,7 @@ const Signup = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // await createUser(formData);
+    await createUser(formData);
     console.log(formData);
   };
 

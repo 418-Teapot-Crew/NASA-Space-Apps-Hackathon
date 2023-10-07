@@ -6,11 +6,24 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Teapot.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class IntialMigration : Migration
+    public partial class AddUserAuthModels : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "operation_claims",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_operation_claims", x => x.id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "users",
                 columns: table => new
@@ -20,11 +33,33 @@ namespace Teapot.DataAccess.Migrations
                     first_name = table.Column<string>(type: "text", nullable: false),
                     last_name = table.Column<string>(type: "text", nullable: false),
                     email = table.Column<string>(type: "text", nullable: false),
-                    password = table.Column<string>(type: "text", nullable: false)
+                    password_hash = table.Column<byte[]>(type: "bytea", nullable: false),
+                    password_salt = table.Column<byte[]>(type: "bytea", nullable: false),
+                    status = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_users", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "user_operation_claims",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    operation_claim_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_user_operation_claims", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_user_operation_claims_operation_claims_operation_claim_id",
+                        column: x => x.operation_claim_id,
+                        principalTable: "operation_claims",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,49 +141,21 @@ namespace Teapot.DataAccess.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    project_id = table.Column<string>(type: "text", nullable: false),
-                    contributor_id = table.Column<string>(type: "text", nullable: false),
-                    contributor_id1 = table.Column<int>(type: "integer", nullable: false),
-                    project_id1 = table.Column<int>(type: "integer", nullable: false)
+                    project_id = table.Column<int>(type: "integer", nullable: false),
+                    contributor_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_project_contributor", x => x.id);
                     table.ForeignKey(
-                        name: "fk_project_contributor_projects_project_id1",
-                        column: x => x.project_id1,
-                        principalTable: "projects",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_project_contributor_users_contributor_id1",
-                        column: x => x.contributor_id1,
-                        principalTable: "users",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "user_projects",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<int>(type: "integer", nullable: false),
-                    project_id = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_user_projects", x => x.id);
-                    table.ForeignKey(
-                        name: "fk_user_projects_projects_project_id",
+                        name: "fk_project_contributor_projects_project_id",
                         column: x => x.project_id,
                         principalTable: "projects",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_user_projects_users_user_id",
-                        column: x => x.user_id,
+                        name: "fk_project_contributor_users_contributor_id",
+                        column: x => x.contributor_id,
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -175,14 +182,14 @@ namespace Teapot.DataAccess.Migrations
                 column: "sender_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_project_contributor_contributor_id1",
+                name: "ix_project_contributor_contributor_id",
                 table: "project_contributor",
-                column: "contributor_id1");
+                column: "contributor_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_project_contributor_project_id1",
+                name: "ix_project_contributor_project_id",
                 table: "project_contributor",
-                column: "project_id1");
+                column: "project_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_projects_owner_id",
@@ -190,14 +197,9 @@ namespace Teapot.DataAccess.Migrations
                 column: "owner_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_user_projects_project_id",
-                table: "user_projects",
-                column: "project_id");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_user_projects_user_id",
-                table: "user_projects",
-                column: "user_id");
+                name: "ix_user_operation_claims_operation_claim_id",
+                table: "user_operation_claims",
+                column: "operation_claim_id");
         }
 
         /// <inheritdoc />
@@ -210,13 +212,16 @@ namespace Teapot.DataAccess.Migrations
                 name: "project_contributor");
 
             migrationBuilder.DropTable(
-                name: "user_projects");
+                name: "user_operation_claims");
 
             migrationBuilder.DropTable(
                 name: "chats");
 
             migrationBuilder.DropTable(
                 name: "projects");
+
+            migrationBuilder.DropTable(
+                name: "operation_claims");
 
             migrationBuilder.DropTable(
                 name: "users");

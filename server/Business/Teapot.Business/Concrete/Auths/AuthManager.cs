@@ -1,10 +1,8 @@
 ﻿using Teapot.Business.Concrete.Auths.Dto;
 using Teapot.Business.Concrete.Users;
-using Teapot.Core.Entities.Concrete;
 using Teapot.Core.Utilities.Results;
 using Teapot.Core.Utilities.Security.Hashing;
 using Teapot.Core.Utilities.Security.JWT;
-using Teapot.DataAccess.Contexts;
 using Teapot.Entities.Concrete;
 
 namespace Teapot.Business.Concrete.Auths
@@ -20,7 +18,7 @@ namespace Teapot.Business.Concrete.Auths
             _tokenHelper = tokenHelper;
         }
 
-        public async Task<IDataResult<LoggedInDto>> Register(RegisterDto userForRegisterDto)
+        public async Task<IDataResult<AppUser>> Register(RegisterDto userForRegisterDto)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(userForRegisterDto.Password, out passwordHash, out passwordSalt);
@@ -33,29 +31,29 @@ namespace Teapot.Business.Concrete.Auths
                 PasswordSalt = passwordSalt,
                 Status = true
             };
-            await _userService.Add(user);
-            return new SuccessDataResult<LoggedInDto>(new() { }, "User successfully registered!"); // TODO: object will be returned
+            var createdUser = await _userService.Add(user);
+            return new SuccessDataResult<AppUser>(createdUser.Data, "User successfully registered!");
         }
 
-        public async Task<IDataResult<LoggedInDto>> Login(LoginDto userForLoginDto)
+        public async Task<IDataResult<AppUser>> Login(LoginDto userForLoginDto)
         {
             var userToCheck = await _userService.GetByMail(userForLoginDto.Email);
             if (userToCheck == null)
             {
-                return new ErrorDataResult<LoggedInDto>("User not found!");
+                return new ErrorDataResult<AppUser>("User not found!");
             }
 
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
             {
-                return new ErrorDataResult<LoggedInDto>("Wrong password!");
+                return new ErrorDataResult<AppUser>("Wrong password!");
             }
 
-            return new SuccessDataResult<LoggedInDto>(new LoggedInDto { }, "Successfully login!");
+            return new SuccessDataResult<AppUser>(userToCheck, "Successfully login!");
         }
 
-        public IResult UserExists(string email)
+        public async Task<IResult> UserExists(string email)
         {
-            if (_userService.GetByMail(email) != null)
+            if (await _userService.GetByMail(email) != null)
             {
                 return new ErrorResult("User already exists!");
             }

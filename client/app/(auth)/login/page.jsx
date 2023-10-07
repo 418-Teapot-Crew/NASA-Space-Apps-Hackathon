@@ -1,12 +1,12 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { AiFillGithub } from 'react-icons/ai';
-import Link from 'next/link';
+"use client";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { toast } from "react-hot-toast";
+import { AiFillGithub } from "react-icons/ai";
+import Link from "next/link";
 
 const custom_input =
-  'py-2 text-sm text-slate-900 placeholder-slate-600 shadow-md border bg-gray-200 rounded-md px-3 dark:bg-black  focus:outline-none focus:ring-1';
+  "py-2 text-sm text-slate-900 placeholder-slate-600 shadow-md border bg-gray-200 rounded-md px-3 dark:bg-black  focus:outline-none focus:ring-1";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
@@ -41,7 +41,7 @@ const Login = () => {
     <div className="flex flex-col justify-center gap-2 w-2/3">
       <Link
         className="absolute bg-black text-sm text-white rounded-md right-7 top-7 font-light border shadow-lg px-4 py-2"
-        href={'/signup'}
+        href={"/signup"}
       >
         Sign Up
       </Link>

@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         navbar: "#251B37",
+        title: "#1F5492",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

@@ -6,8 +6,8 @@ namespace Teapot.Entities.Concrete
     {
 
         public int Id { get; set; }
-        public string ProjectId { get; set; }
-        public string ContributorId { get; set; }
+        public int ProjectId { get; set; }
+        public int ContributorId { get; set; }
         public AppUser Contributor { get; set; }
         public Project Project { get; set; }
     }

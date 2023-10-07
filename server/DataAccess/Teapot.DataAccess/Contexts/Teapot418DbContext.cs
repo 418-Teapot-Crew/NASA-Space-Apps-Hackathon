@@ -18,7 +18,6 @@ namespace Teapot.DataAccess.Contexts
         public DbSet<Message> Messages { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<AppUser> Users { get; set; }
-        public DbSet<UserProject> UserProjects { get; set; }
 
 
 

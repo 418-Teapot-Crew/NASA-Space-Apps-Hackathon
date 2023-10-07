@@ -20,22 +20,43 @@ namespace Teapot.Business.Concrete.Users
         public async Task<IDataResult<AppUser>> Add(AppUser addUserDto)
         {
             var user = await _context.Users.AddAsync(addUserDto);
+            await _context.SaveChangesAsync();
             return new SuccessDataResult<AppUser>(user.Entity, "user added");
         }
 
-        public Task<IResult> Delete(int id)
+        public async Task<IResult> Delete(int id)
         {
-            throw new NotImplementedException();
+            var userToDelete = await  _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            if (userToDelete !=null)
+            {
+                _context.Users.Remove(userToDelete);
+                return new SuccessResult();
+
+            }
+            return new ErrorResult("user cannot find");
+
         }
 
-        public Task<IDataResult<List<AppUser>>> GetAll()
+        public async Task<IDataResult<List<AppUser>>> GetAll()
         {
-            throw new NotImplementedException();
+            
+            var users = await _context.Users.ToListAsync();
+            if (users != null)
+            {
+                return new SuccessDataResult<List<AppUser>>(users, "users listed");
+            }
+            return new ErrorDataResult<List<AppUser>>("users cannot get");
         }
 
-        public Task<IDataResult<AppUser>> GetById(int id)
+        public async Task<IDataResult<AppUser>> GetById(int id)
         {
-            throw new NotImplementedException();
+            var user = await _context.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
+            if (user != null)
+            {
+                return new SuccessDataResult<AppUser>(user, "user get");
+            }
+            return new ErrorDataResult<AppUser>("user cannot get");
+
         }
 
         public async Task<AppUser?> GetByMail(string email)

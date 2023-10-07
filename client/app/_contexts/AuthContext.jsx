@@ -1,5 +1,6 @@
 "use client";
 import { useReducer, createContext, useContext } from "react";
+import jwtDecode from "jwt-decode";
 
 export const INITIAL_STATE = {
   isLoggedIn: JSON.parse(localStorage.getItem("isLoggedIn")) || false,
@@ -11,8 +12,6 @@ export const INITIAL_STATE = {
   google_client_secret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
   google_client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
 };
-
-// console.log(INITIAL_STATE);
 
 const AuthContext = createContext({
   state: INITIAL_STATE,
@@ -26,11 +25,20 @@ export const reducer = (state, action) => {
         "isLoggedIn",
         JSON.stringify(action.payload.isLoggedIn)
       );
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
+      const user = jwtDecode(action?.payload?.token);
+      const userObj = {
+        id: user[
+          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+        ],
+        email: user.email,
+        fullName:
+          user["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"],
+      };
+      localStorage.setItem("user", JSON.stringify(userObj));
       return {
         ...state,
+        user: userObj,
         isLoggedIn: action.payload.isLoggedIn,
-        user: action.payload.user,
       };
     }
     case "LOGOUT": {

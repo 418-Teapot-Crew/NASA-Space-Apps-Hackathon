@@ -5,43 +5,40 @@ import { toast } from "react-hot-toast";
 import { AiFillGithub } from "react-icons/ai";
 import Link from "next/link";
 import { useAuthContext } from "../../_contexts/AuthContext";
-import { useGoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import { FcGoogle } from "react-icons/fc";
+import { authLogin } from "../../_api/auth";
 
 const custom_input =
   "py-2 text-sm text-slate-900 placeholder-slate-600 shadow-md border bg-gray-200 rounded-md px-3   focus:outline-none focus:ring-1";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
+  const { state, dispatch } = useAuthContext();
+  const [data, setData] = useState({ errorMessage: "", isLoading: false });
+
   const router = useRouter();
-  /*  const handleChange = (e: any) => {
+  const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await authLogin(formData);
-    console.log(response);
-    login(response.data.data.access_token);
-    router.push("/");
+    try {
+      const response = await authLogin(formData);
+      dispatch({
+        type: "LOGIN",
+        payload: { token: response?.data?.token, isLoggedIn: true },
+      });
+      router.push("/");
+    } catch (err) {
+      console.log(err);
+    }
+
+    // router.push("/");
   };
-
-  const loginViaGithub = async () => {
-    window.open("http://localhost:4000/api/auth/github", "_blank");
-  }; */
-
-  const handleChange = (e) => {
-    console.log(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    console.log(e.target.value);
-  };
-
-  const { state, dispatch } = useAuthContext();
-  const [data, setData] = useState({ errorMessage: "", isLoading: false });
 
   const { client_id, redirect_uri } = state;
 

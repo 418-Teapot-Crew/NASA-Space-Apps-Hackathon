@@ -39,8 +39,8 @@ function Earth() {
 
 export default function EartCanvas() {
   return (
-    <Canvas>
-      <ambientLight intensity={0.7} />
+    <Canvas className="cursor-pointer">
+      <ambientLight intensity={0.9} />
       <directionalLight intensity={4.5} position={[1, 0.75, 0.25]} />
       <OrbitControls
         autoRotate

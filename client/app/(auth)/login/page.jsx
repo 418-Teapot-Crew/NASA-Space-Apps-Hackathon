@@ -1,9 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AiFillGithub } from "react-icons/ai";
 import Link from "next/link";
+import { useAuthContext } from "../../_contexts/AuthContext";
 
 const custom_input =
   "py-2 text-sm text-slate-900 placeholder-slate-600 shadow-md border bg-gray-200 rounded-md px-3   focus:outline-none focus:ring-1";
@@ -36,6 +37,56 @@ const Login = () => {
   const handleSubmit = (e) => {
     console.log(e.target.value);
   };
+
+  const { state, dispatch } = useAuthContext();
+  const [data, setData] = useState({ errorMessage: "", isLoading: false });
+
+  const { client_id, redirect_uri } = state;
+
+  useEffect(() => {
+    // After requesting Github access, Github redirects back to your app with a code parameter
+    const url = window.location.href;
+    const hasCode = url.includes("?code=");
+    console.log("hello 1");
+
+    // If Github API returns the code parameter
+    if (hasCode) {
+      console.log("hello 2");
+      const newUrl = url.split("?code=");
+      window.history.pushState({}, null, newUrl[0]);
+      setData({ ...data, isLoading: true });
+
+      const requestData = {
+        code: newUrl[1],
+      };
+
+      const proxy_url = state.proxy_url;
+
+      // Use code parameter and other parameters to make POST request to proxy_server
+      fetch(proxy_url, {
+        method: "POST",
+        body: JSON.stringify(requestData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          dispatch({
+            type: "LOGIN",
+            payload: { user: data, isLoggedIn: true },
+          });
+          // router.push()
+        })
+        .catch((error) => {
+          setData({
+            isLoading: false,
+            errorMessage: "Sorry! Login failed",
+          });
+        });
+    }
+  }, [state, dispatch, data]);
+
+  if (state.isLoggedIn) {
+    router.push("/");
+  }
 
   return (
     <div className="flex flex-col justify-center gap-2 w-2/3">
@@ -85,13 +136,25 @@ const Login = () => {
             </span>
           </div>
 
-          <button
-            className="bg-white w-full text-black shadow-xl border py-2 text-sm font-light rounded flex gap-1 items-center justify-center tracking-wider"
-            onClick={() => loginViaGithub()}
-            type="button"
-          >
-            <AiFillGithub className="text-xl" /> Github
-          </button>
+          {data.isLoading ? (
+            <div
+              className="bg-white w-full text-black shadow-xl border py-2 text-sm font-light rounded flex gap-1 items-center justify-center tracking-wider"
+              type="button"
+            >
+              Loading
+            </div>
+          ) : (
+            <a
+              className="bg-white w-full text-black shadow-xl border py-2 text-sm font-light rounded flex gap-1 items-center justify-center tracking-wider"
+              type="button"
+              href={`https://github.com/login/oauth/authorize?scope=user&client_id=${client_id}&redirect_uri=${redirect_uri}`}
+              onClick={() => {
+                setData({ ...data, errorMessage: "" });
+              }}
+            >
+              <AiFillGithub className="text-xl" /> Github
+            </a>
+          )}
         </form>
       </div>
     </div>

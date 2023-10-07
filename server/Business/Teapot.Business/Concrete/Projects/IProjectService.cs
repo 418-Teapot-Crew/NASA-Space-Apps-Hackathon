@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Teapot.Business.Concrete.Projects.Dto;
-using Teapot.Business.Concrete.Users.Dto;
 using Teapot.Entities.Concrete;
 
 namespace Teapot.Business.Concrete.Projects

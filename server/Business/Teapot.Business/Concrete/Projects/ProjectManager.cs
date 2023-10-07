@@ -70,7 +70,7 @@ namespace Teapot.Business.Concrete.Projects
                 projectToUpdate.Description = updateProjectDto.Description;
                 _context.Projects.Update(projectToUpdate);
                 await _context.SaveChangesAsync();
-                return new SuccessDataResult<Project(projectToUpdate);    
+                return new SuccessDataResult<Project>(projectToUpdate);    
             }
             return new ErrorDataResult<Project>("project cannot updated");
 

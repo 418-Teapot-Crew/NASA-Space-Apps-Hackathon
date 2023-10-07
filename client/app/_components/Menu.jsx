@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const router = usePathname();
+  const path = usePathname();
   const toggle = () => setIsOpen(!isOpen);
   const variants = {
     hidden: { opacity: 0, x: 0, y: -200 },
@@ -17,12 +17,15 @@ const Menu = () => {
     exit: { opacity: 0, x: 0, y: -200 },
   };
 
-  useEffect(() => setIsOpen(false), [router]);
+  useEffect(() => setIsOpen(false), [path]);
 
   return (
     <div>
       <button onClick={toggle}>
-        <BiMenu size={50} />
+        <BiMenu
+          className={` ${path === "/" ? "text-navbar" : "text-white"}`}
+          size={50}
+        />
       </button>
       <AnimatePresence mode="wait">
         {isOpen && (
@@ -31,16 +34,11 @@ const Menu = () => {
             initial="hidden"
             whileInView="enter"
             exit="exit"
-            className="fixed flex flex-col text-white bg-black top-0 left-0 h-screen w-full "
+            className="fixed flex flex-col text-white bg-navbar top-0 left-0 h-screen w-full "
           >
-            <div className="flex w-full h-24 py-4 items-center  px-24 top-0 flex-row justify-between">
-              <div className="">
-                <Image
-                  src={"/assets/team-logo.png"}
-                  width={64}
-                  height={64}
-                  alt=""
-                />
+            <div className="flex w-full py-2 items-center  px-10 top-0 flex-row justify-between">
+              <div className="w-[100px] h-auto">
+                <img src="/assets/team-logo.png" alt="" />
               </div>
               <button onClick={toggle}>
                 <RxCross1 size={45} />

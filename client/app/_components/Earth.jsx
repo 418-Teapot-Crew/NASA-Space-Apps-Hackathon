@@ -1,4 +1,5 @@
 "use client";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import React, { Suspense, useRef } from "react";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
@@ -25,12 +26,13 @@ function Earth() {
 }
 
 export default function EartCanvas() {
+  const earth = useGLTF("./assets/Earth_1_12756.glb");
+
   return (
     <Canvas>
       <ambientLight intensity={0.1} />
       <directionalLight intensity={2.5} position={[1, 0.5, 0.25]} />
-
-      <Earth />
+      <primitive object={earth.asset} scale={2.5} />
     </Canvas>
   );
 }

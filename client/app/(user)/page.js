@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="h-screen relative flex items-center justify-between ">
       <ParticlesBg num={50} type="cobweb" bg={true} />
-      <div className=" flex flex-col gap-4 text-center  text-black ">
+      <div className=" flex flex-1 flex-col gap-4 text-center  text-black ">
         <h1 className="m-0 font-extrabold text-8xl">418 TEAPOT</h1>
         <p className="m-0 font-bold ">
           "Connecting Minds, Building Futures: Uniting Open Science Innovators
@@ -14,7 +14,7 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="h-[100vh] w-full">
+      <div className="h-[100vh] flex-1 w-full">
         <Earth />
       </div>
     </div>

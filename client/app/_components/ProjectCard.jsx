@@ -6,7 +6,7 @@ const ProjectCard = ({ project }) => {
   return (
     <div className="flex flex-col  w-80 pt-1 pb-2 px-2 bg-white dark:bg-dark-color  rounded-md shadow-md">
       <Link className="flex flex-col  gap-4 group" href={`/`}>
-        <div className="relative   h-48 w-60 ">
+        <div className="relative flex    h-48 w-60 ">
           <Image
             src={"/assets/team-logo.png"}
             fill

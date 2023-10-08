@@ -19,14 +19,24 @@ export default function Header() {
       <div className="">
         <Link href={"/"}>
           <div className="flex flex-row gap-5 items-center text-center ">
-            {/* <div className="relative">
-              <Image
-                src={"/assets/team-logo.png"}
-                alt=""
-                width={50}
-                height={50}
-              />
-            </div> */}
+            {path !== "/" ? (
+              <div className="flex gap-2 items-center">
+                {/* <div className="h-[70px] w-auto">
+                  <img
+                    src="/assets/spaceapps-logo.jpg"
+                    className="w-full h-full"
+                    alt=""
+                  />
+                </div> */}
+                <div className="h-[50px] w-auto">
+                  <img
+                    src="/assets/nasa-logo.png"
+                    className="w-full h-full"
+                    alt=""
+                  />
+                </div>
+              </div>
+            ) : null}
           </div>
         </Link>
       </div>

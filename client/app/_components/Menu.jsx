@@ -41,12 +41,17 @@ const Menu = () => {
           >
             <div className="flex w-full py-2 items-center  px-24 top-0 flex-row justify-between">
               <div className="flex flex-row gap-5 items-center text-center ">
-                <div className="w-[100px] h-auto">
-                  <img src="/assets/team-logo.png" alt="" />
+                <div className="flex gap-2 items-center">
+                  <div className="w-[100px] h-auto">
+                    <img src="/assets/spaceapps-logo.jpg" alt="" />
+                  </div>
+                  <div className="w-[100px] h-auto">
+                    <img src="/assets/nasa-logo.png" alt="" />
+                  </div>
                 </div>
                 {state?.isLoggedIn ? (
-                  <h1 className="text-4xl font-bold tracking-wider">
-                    Researcher {state?.user?.fullName}
+                  <h1 className="text-3xl font-bold tracking-wider bg-white rounded text-black px-3 py-1">
+                    {state?.user?.fullName}
                   </h1>
                 ) : (
                   <h1 className="text-4xl font-bold tracking-wider">
@@ -65,14 +70,21 @@ const Menu = () => {
                   {state?.isLoggedIn ? (
                     <>
                       <li>
-                        <Link className="custom-link" href={"/profile"}>
+                        <Link
+                          className={`custom-link ${
+                            path === "/profile" ? "bg-white text-black" : ""
+                          }`}
+                          href={"/profile"}
+                        >
                           Profile
                         </Link>
                       </li>
                       <li>
                         <button
                           type="button"
-                          className="custom-link"
+                          className={`custom-link ${
+                            path === "---" ? "bg-white" : ""
+                          }`}
                           onClick={() => dispatch({ type: "LOGOUT" })}
                         >
                           Logout
@@ -82,30 +94,55 @@ const Menu = () => {
                   ) : (
                     <>
                       <li>
-                        <Link className="custom-link" href={"/login"}>
+                        <Link
+                          className={`custom-link ${
+                            path === "---" ? "bg-white" : ""
+                          }`}
+                          href={"/login"}
+                        >
                           Login
                         </Link>
                       </li>
                       <li>
-                        <Link href={"/signup"} className="custom-link">
+                        <Link
+                          href={"/signup"}
+                          className={`custom-link ${
+                            path === "---" ? "bg-white" : ""
+                          }`}
+                        >
                           Register
                         </Link>
                       </li>
                     </>
                   )}
                   <li>
-                    <Link className="custom-link" href={"/"}>
+                    <Link
+                      className={`custom-link ${
+                        path === "/" ? "bg-white text-black" : ""
+                      }`}
+                      href={"/"}
+                    >
                       Home
                     </Link>
                   </li>
 
                   <li>
-                    <Link className="custom-link" href={"/explore"}>
+                    <Link
+                      className={`custom-link ${
+                        path === "/explore" ? "bg-white text-black" : ""
+                      }`}
+                      href={"/explore"}
+                    >
                       Explore
                     </Link>
                   </li>
                   <li>
-                    <Link href={"/projects"} className="custom-link">
+                    <Link
+                      href={"/projects"}
+                      className={`custom-link ${
+                        path === "/projects" ? "bg-white text-black" : ""
+                      }`}
+                    >
                       Projects
                     </Link>
                   </li>

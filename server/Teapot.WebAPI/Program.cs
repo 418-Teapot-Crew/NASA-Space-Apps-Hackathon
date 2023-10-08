@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Teapot.Business;
+using Teapot.Business.Concrete.AI;
 using Teapot.Business.Hubs;
 using Teapot.Core.Utilities.Security.Encryption;
 using Teapot.Core.Utilities.Security.JWT;
@@ -54,6 +55,9 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.RegisterBusinessServices();
+//var serviceProvider = builder.Services.BuildServiceProvider();
+//var service = serviceProvider.GetRequiredService<IAIService>();
+//service.WriteToDatabase().GetAwaiter();
 builder.Services.AddSignalR();
 
 var app = builder.Build();

@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./_contexts/AuthContext";
 import "./globals.css";
 import { Inter, Space_Mono } from "next/font/google";
@@ -10,6 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <Toaster />
       <AuthProvider>
         <body>{children}</body>
       </AuthProvider>

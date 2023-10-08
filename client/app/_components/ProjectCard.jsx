@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BiUser } from "react-icons/bi";
 
 const ProjectCard = ({ project }) => {
   return (
     <div className="flex flex-col   w-80 pt-1 pb-2 px-2 bg-white   rounded-md shadow-md">
-      <Link className="flex flex-col  gap-4 group" href={`/`}>
+      <Link
+        className="flex flex-col  gap-4 group"
+        href={`/projects/${project?.id}`}
+      >
         <div className="relative flex    h-48 w-60 ">
           <Image
             src={"/assets/team-logo.png"}
@@ -27,7 +29,9 @@ const ProjectCard = ({ project }) => {
           </div>
           <span className="opacity-70">2023</span>
           <div className="mt-2">
-            <p className="font-bold">{project?.owner}</p>
+            <p className="font-bold">
+              {project?.owner.firstName + " " + project.owner.lastName}
+            </p>
           </div>
         </div>
       </Link>

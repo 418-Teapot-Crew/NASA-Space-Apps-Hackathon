@@ -6,9 +6,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { CgMenuMotion } from "react-icons/cg";
 import { usePathname } from "next/navigation";
+import { useAuthContext } from "../_contexts/AuthContext";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { state, dispatch } = useAuthContext();
   const path = usePathname();
   const toggle = () => setIsOpen(!isOpen);
   const variants = {
@@ -20,7 +22,7 @@ const Menu = () => {
   useEffect(() => setIsOpen(false), [path]);
 
   return (
-    <div>
+    <div className="pt-5">
       <button onClick={toggle}>
         <CgMenuMotion
           className={` ${path === "/" ? "text-navbar" : "text-black"}`}
@@ -42,9 +44,15 @@ const Menu = () => {
                 <div className="w-[100px] h-auto">
                   <img src="/assets/team-logo.png" alt="" />
                 </div>
-                <h1 className="text-4xl font-bold tracking-wider">
-                  418 Teapot
-                </h1>
+                {state?.isLoggedIn ? (
+                  <h1 className="text-4xl font-bold tracking-wider">
+                    Researcher {state?.user?.fullName}
+                  </h1>
+                ) : (
+                  <h1 className="text-4xl font-bold tracking-wider">
+                    418 Teapot
+                  </h1>
+                )}
               </div>
 
               <button onClick={toggle}>
@@ -54,26 +62,43 @@ const Menu = () => {
             <div className="flex flex-row h-[75vh] w-full justify-around items-center">
               <div>
                 <ul className="flex gap-6 text-6xl flex-col items-center">
+                  {state?.isLoggedIn ? (
+                    <>
+                      <li>
+                        <Link className="custom-link" href={"/profile"}>
+                          Profile
+                        </Link>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className="custom-link"
+                          onClick={() => dispatch({ type: "LOGOUT" })}
+                        >
+                          Logout
+                        </button>
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li>
+                        <Link className="custom-link" href={"/login"}>
+                          Login
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href={"/signup"} className="custom-link">
+                          Register
+                        </Link>
+                      </li>
+                    </>
+                  )}
                   <li>
                     <Link className="custom-link" href={"/"}>
                       Home
                     </Link>
                   </li>
-                  <li>
-                    <Link className="custom-link" href={"/profile"}>
-                      Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="custom-link" href={"/login"}>
-                      Login
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href={"/signup"} className="custom-link">
-                      Register
-                    </Link>
-                  </li>
+
                   <li>
                     <Link className="custom-link" href={"/explore"}>
                       Explore

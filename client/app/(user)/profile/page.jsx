@@ -49,6 +49,11 @@ const Profile = () => {
     }
   };
 
+  const setDescription = (description) => {
+    console.log("description", description);
+    setProfile({ ...profile, description });
+  };
+
   return (
     <div className="flex-1 flex flex-col gap-3  self-start">
       <input
@@ -86,7 +91,7 @@ const Profile = () => {
         rows="10"
       ></textarea>
 
-      <FileUpload />
+      <FileUpload setDescription={setDescription} />
       <button
         className="w-full bg-navbar text-white text-center py-2 rounded"
         type="button"

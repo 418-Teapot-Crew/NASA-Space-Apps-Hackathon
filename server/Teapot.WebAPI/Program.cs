@@ -7,6 +7,7 @@ using Teapot.Business.Hubs;
 using Teapot.Core.Utilities.Security.Encryption;
 using Teapot.Core.Utilities.Security.JWT;
 using Teapot.DataAccess.Contexts;
+using Teapot.WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,7 +62,7 @@ builder.Services.RegisterBusinessServices();
 builder.Services.AddSignalR();
 
 var app = builder.Build();
-
+app.InitializeDatabase();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

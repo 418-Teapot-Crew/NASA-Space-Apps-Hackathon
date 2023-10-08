@@ -23,12 +23,16 @@ services:
     depends_on:
       - database
     ports:
-      - "5000:80"
+      - "5001:1453"
     networks:
       - "teapotnetwork"
+    volumes:
+      - server:/root/.aspnet/DataProtection-Keys
+      # - server:/shared-volume
 
 volumes:
   db:
+  server:
 
 networks:
   teapotnetwork:

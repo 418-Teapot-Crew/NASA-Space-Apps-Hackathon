@@ -3,9 +3,7 @@
 import { useEffect, useState } from "react";
 import ParticleBg from "./ParticleBg";
 
-export default function Loading() {
-  const [progress, setProgress] = useState(0);
-
+export default function Loading({ progress, setProgress }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prevProgress) =>

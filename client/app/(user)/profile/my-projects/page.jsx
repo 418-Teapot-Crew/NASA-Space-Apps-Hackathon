@@ -8,7 +8,9 @@ const MyProjects = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     getByUserId(state?.user?.id).then((res) => setData(res?.data?.data));
-  }, [state]);
+  }, [state.user]);
+
+  console.log(data);
 
   return (
     <div className="flex gap-5 flex-col  flex-1 self-start">

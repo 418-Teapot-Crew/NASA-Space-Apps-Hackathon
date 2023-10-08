@@ -8,10 +8,11 @@ import Loading from "../../_components/Loading";
 const Explore = () => {
   const data = getMockData();
   const [search, setSearch] = React.useState("");
+  const [progress, setProgress] = React.useState(0);
 
   return (
     <div className="pt-[130px] flex flex-col gap-10 items-center">
-      <Loading />
+      <Loading progress={progress} setProgress={setProgress} />
       <h1 className="font-light italic text-lg px-12">
         "Unlocking the doors to a world of endless possibilities, our project
         utilizes artificial intelligence to seamlessly connect users with Open
@@ -33,7 +34,7 @@ const Explore = () => {
       </div>
 
       {data.projects.map((project) => (
-        <ExploreProjectCard />
+        <>{progress == 100 && <ExploreProjectCard />}</>
       ))}
     </div>
   );

@@ -126,7 +126,7 @@ const ProjectDetail = ({ params }) => {
       </div>
       <Details project={project} />
       <Contributers project={project} />
-      <Invites />
+      <Invites project={project} />
       {openChatModal ? (
         <ChatModal
           closeModal={() => setOpenChatModal(false)}

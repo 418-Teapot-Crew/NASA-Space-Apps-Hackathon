@@ -5,5 +5,10 @@ const getUserInvite = (userId, projectId) =>
   axios.get(
     `/api/Invites/getbyprojectidandcontributorid?projectId=${projectId}&contributor=${userId}`
   );
+const getProjectInvite = (projectId) =>
+  axios.get(`/api/Invites/getbyprojectid?projectId=${projectId}`);
 
-export { addInvite, getUserInvite };
+const acceptInvite = (id) =>
+  axios.put(`/api/Invites/update?id=${id}`, { status: true });
+
+export { addInvite, getUserInvite, getProjectInvite, acceptInvite };

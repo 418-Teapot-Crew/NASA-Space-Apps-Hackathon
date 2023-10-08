@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { getUser, putUser } from "../../_api/user";
 import { useAuthContext } from "../../_contexts/AuthContext";
 import FileUpload from "../../_components/FileUpload";
+import ParticleBg from "../../_components/ParticleBg";
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -56,6 +57,7 @@ const Profile = () => {
 
   return (
     <div className="flex-1 flex flex-col gap-3  self-start">
+      <ParticleBg />
       <input
         type="text"
         placeholder="First Name"

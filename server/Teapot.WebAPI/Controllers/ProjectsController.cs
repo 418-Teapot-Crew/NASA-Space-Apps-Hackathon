@@ -89,7 +89,7 @@ namespace Teapot.WebAPI.Controllers
             return BadRequest(result);
         }
 
-     /*   [HttpGet("getcontributesbyuserid")]
+        [HttpGet("getcontributesbyuserid")]
         public async Task<IActionResult> GetContributeByUserId(int userId)
         {
             var result = await _projectContributorService.GetProjectsByUserId(userId);
@@ -98,6 +98,6 @@ namespace Teapot.WebAPI.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
-        }*/
+        }
     }
 }

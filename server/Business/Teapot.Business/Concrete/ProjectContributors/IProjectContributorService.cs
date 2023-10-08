@@ -17,7 +17,7 @@ namespace Teapot.Business.Concrete.ProjectContributors
         Task<IDataResult<List<ProjectContributor>>> GetAll();
         Task<IDataResult<List<AppUser>>> GetContributorsByProjectId(int projectId);
         Task<IResult> Delete(int id);
-       /* Task<IDataResult<List<ProductListDto>>> GetProjectsByUserId(int userId);*/
+        Task<IDataResult<List<Projects.Dto.ProjectListDto>>> GetProjectsByUserId(int userId);
 
     }
 }

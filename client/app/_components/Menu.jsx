@@ -26,7 +26,7 @@ const Menu = () => {
     <div className="pt-5">
       <button onClick={toggle}>
         <CgMenuMotion
-          className={` ${path === "/" ? "text-navbar" : "text-black"}`}
+          className={` ${path === "/" ? "text-[#375bec]" : "text-blood"}`}
           size={50}
         />
       </button>
@@ -58,7 +58,7 @@ const Menu = () => {
               </div>
 
               <button onClick={toggle}>
-                <RxCross1 size={45} />
+                <RxCross1 className="text-blood font-extrabold" size={45} />
               </button>
             </div>
             <div className="flex flex-row h-[75vh] w-full justify-around items-center">

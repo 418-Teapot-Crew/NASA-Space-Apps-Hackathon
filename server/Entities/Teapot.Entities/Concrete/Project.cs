@@ -13,9 +13,9 @@ namespace Teapot.Entities.Concrete
         public string? ParticipantAge { get; set; }
         public string? ParticipationTasks { get; set; }
         public string? StartDate { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Keywords { get; set; }
+        public string? Title { get; set; }
+        public string? Description { get; set; }
+        public string? Keywords { get; set; }
         public int OwnerId { get; set; }
         public AppUser Owner { get; set; }
         public DateTime Date { get; set; }

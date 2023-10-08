@@ -23,7 +23,7 @@ services:
     depends_on:
       - database
     ports:
-      - "5001:1453"
+      - "5001:80"
     networks:
       - "teapotnetwork"
     volumes:

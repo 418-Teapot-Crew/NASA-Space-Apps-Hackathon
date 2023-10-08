@@ -144,12 +144,4 @@ const getMockData = () => {
   };
 };
 
-export {
-  createUser,
-  deleteUser,
-  patchUser,
-  getUsers,
-  getUser,
-  getMockData,
-  putUser,
-};
+export { createUser, deleteUser, getUsers, getUser, getMockData, putUser };

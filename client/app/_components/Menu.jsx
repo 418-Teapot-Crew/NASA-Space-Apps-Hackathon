@@ -43,22 +43,18 @@ const Menu = () => {
             <div className="flex w-full py-2 items-center  px-24 top-0 flex-row justify-between">
               <div className="flex flex-row gap-5 items-center text-center ">
                 <div className="flex gap-2 items-center">
-                  <div className="w-[100px] h-auto">
+                  <Link href={"/"} className="w-[100px] h-auto">
                     <img src="/assets/spaceapps-logo.jpg" alt="" />
-                  </div>
-                  <div className="w-[100px] h-auto">
+                  </Link>
+                  <Link href={"/"} className="w-[100px] h-auto">
                     <img src="/assets/nasa-logo.png" alt="" />
-                  </div>
+                  </Link>
                 </div>
                 {state?.isLoggedIn ? (
-                  <h1 className="text-3xl font-bold tracking-wider bg-white rounded text-black px-3 py-1">
+                  <h1 className="text-2xl font-bold tracking-wider bg-white rounded text-black px-3 py-1">
                     {state?.user?.fullName}
                   </h1>
-                ) : (
-                  <h1 className="text-4xl font-bold tracking-wider">
-                    418 Teapot
-                  </h1>
-                )}
+                ) : null}
               </div>
 
               <button onClick={toggle}>

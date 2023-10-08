@@ -80,7 +80,7 @@ const AddProject = () => {
         />
         <input
           type="text"
-          name="url"
+          name="projectUrl"
           onChange={handleChange}
           placeholder="Project URL"
           className="p-2 w-full rounded border border-black"
@@ -94,7 +94,7 @@ const AddProject = () => {
           type="date"
           placeholder="ds"
           className="p-2 w-full rounded border border-black"
-          name=""
+          name="dateTime"
           id=""
         />
         <div className="flex items-center justify-center flex-1">

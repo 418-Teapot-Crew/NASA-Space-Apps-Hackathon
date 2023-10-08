@@ -1,11 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../../../_contexts/AuthContext";
+import { getByUserId } from "../../../_api/projects";
 
 const MyProjects = () => {
   const { state } = useAuthContext();
   const [data, setData] = useState([]);
-  useEffect(() => {}, [state]);
+  useEffect(() => {
+    getByUserId(state?.user?.id).then((res) => setData(res?.data?.data));
+  }, [state]);
 
   return (
     <div className="flex gap-5 flex-col  flex-1 self-start">
@@ -25,7 +28,7 @@ const MyProjects = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((project, i) => (
+            {data?.map((project, i) => (
               <tr key={i} className="bg-white border-b  hover:bg-gray-50">
                 <td
                   scope="row"
@@ -33,8 +36,10 @@ const MyProjects = () => {
                 >
                   {project.title}
                 </td>
-                <td className="px-6 py-4">{project.url}</td>
-                <td className="px-6 py-4 text-center">{project.status}</td>
+                <td className="px-6 py-4">{project.projectUrl}</td>
+                <td className="px-6 py-4 text-center">
+                  {project.status ? "Passive" : "Active"}
+                </td>
               </tr>
             ))}
           </tbody>

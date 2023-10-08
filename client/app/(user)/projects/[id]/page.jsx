@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import Details from "../../../_components/projects/Details";
 import Contributers from "../../../_components/projects/Contributers";
 import ChatModal from "../../../_components/ChatModal";
+import Invites from "../../../_components/projects/Invites";
+
 import { BsFillChatLeftFill } from "react-icons/bs";
 import { getProject } from "../../../_api/projects";
 import { addInvite, getUserInvite } from "../../../_api/invites";
@@ -124,6 +126,7 @@ const ProjectDetail = ({ params }) => {
       </div>
       <Details project={project} />
       <Contributers project={project} />
+      <Invites />
       {openChatModal ? (
         <ChatModal
           closeModal={() => setOpenChatModal(false)}

@@ -30,7 +30,7 @@ const Profile = () => {
         type="text"
         placeholder="Last Name"
         className="py-2 px-4 outline-none w-full border border-slate-700 rounded"
-        value={profile.firstName}
+        value={profile.lastName}
         onChange={(e) => setProfile({ ...profile, lastName: e.target.value })}
       />
 

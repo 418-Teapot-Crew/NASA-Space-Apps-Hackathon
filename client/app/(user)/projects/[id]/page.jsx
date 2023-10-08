@@ -5,7 +5,7 @@ import Contributers from "../../../_components/projects/Contributers";
 import ChatModal from "../../../_components/ChatModal";
 import { BsFillChatLeftFill } from "react-icons/bs";
 import { getProject } from "../../../_api/projects";
-import { addInvite } from "../../../_api/invites";
+import { addInvite, getUserInvite } from "../../../_api/invites";
 import { useAuthContext } from "../../../_contexts/AuthContext";
 
 const messages = [
@@ -65,11 +65,18 @@ const messages = [
 const ProjectDetail = ({ params }) => {
   const [openChatModal, setOpenChatModal] = useState(false);
   const [project, setProject] = useState({});
+  const [contributor, setContributor] = useState(null);
+  const [render, setRender] = useState(false);
   const { state } = useAuthContext();
 
   useEffect(() => {
     getProject(params.id).then((res) => setProject(res.data.data));
-  }, [params]);
+    if (state?.user?.id !== "undefined") {
+      getUserInvite(state?.user?.id, params.id)
+        .then((res) => setContributor(res?.data?.data || null))
+        .catch((err) => console.log(err));
+    }
+  }, [params.id, state, render]);
 
   const handleInvite = async () => {
     try {
@@ -77,10 +84,11 @@ const ProjectDetail = ({ params }) => {
         contributorId: state?.user?.id,
         projectId: params.id,
       });
+      setRender(!render);
     } catch (error) {}
   };
 
-  console.log(project);
+  console.log(contributor);
 
   return (
     <div className="py-[180px] font-light min-h-screen">
@@ -97,13 +105,19 @@ const ProjectDetail = ({ params }) => {
             <span className="text-4xl font-extrabold text-title">
               {project.title}
             </span>
-            <button
-              type="button"
-              className="bg-white text-navbar border border-navbar hover:text-white hover:bg-navbar py-2 px-3 transition-all duration-200 rounded font-bold"
-              onClick={() => handleInvite()}
-            >
-              Support Request for Project
-            </button>
+            {contributor === null ? (
+              <button
+                type="button"
+                className="bg-white text-navbar border border-navbar hover:text-white hover:bg-navbar py-2 px-3 transition-all duration-200 rounded font-bold"
+                onClick={() => handleInvite()}
+              >
+                Support Request for Project
+              </button>
+            ) : (
+              <div className="bg-white  text-navbar border border-navbar hover:text-white hover:bg-navbar py-2 px-3 transition-all duration-200 rounded font-bold">
+                Request {contributor?.status ? "Accepted" : "Waiting"}
+              </div>
+            )}
           </div>
           <span className="text-base text-justify">{project.description}</span>
         </div>

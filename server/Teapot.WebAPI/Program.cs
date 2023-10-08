@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Teapot.Business;
+using Teapot.Business.Hubs;
 using Teapot.Core.Utilities.Security.Encryption;
 using Teapot.Core.Utilities.Security.JWT;
 using Teapot.DataAccess.Contexts;
@@ -36,6 +37,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero
         };
     });
+builder.Services.AddSignalR();
 
 builder.Services.AddCors(options =>
 {
@@ -52,6 +54,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.RegisterBusinessServices();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -68,6 +71,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+app.MapHub<ChatHub>("/chatHub");
 app.MapControllers();
 app.UseCors("_myAllowSpecificOrigins");
 app.Run();

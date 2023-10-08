@@ -1,13 +1,10 @@
-﻿using Teapot.Core.Utilities.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using Teapot.Business.Concrete.Projects.Dto;
+using Teapot.Core.Utilities.Results;
 using Teapot.DataAccess.Contexts;
 using Teapot.Entities.Concrete;
-using Microsoft.EntityFrameworkCore;
 
 namespace Teapot.Business.Concrete.Projects
 {
@@ -15,10 +12,12 @@ namespace Teapot.Business.Concrete.Projects
     {
 
         private readonly Teapot418DbContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ProjectManager(Teapot418DbContext context)
+        public ProjectManager(Teapot418DbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IDataResult<Project>> Add(AddProjectDto addProjectDto)
@@ -92,6 +91,32 @@ namespace Teapot.Business.Concrete.Projects
             return new ErrorDataResult<List<Project>>("projects cannot listed by user id");
         }
 
+        public async Task<IDataResult<List<ChatMessageDto>>> GetMessages(int projectId)
+        {
+            var loggedUserId = Convert.ToInt32(_httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var res = await _context
+                .ChatHistories
+                .Where(p => p.ProjectId == projectId)
+                .Select(p => new ChatMessageDto
+                {
+                    Id = p.Id,
+                    Message = p.Message,
+                    Mine = p.SenderId == loggedUserId
+                })
+                .ToListAsync();
+            return new SuccessDataResult<List<ChatMessageDto>>(res);
+        }
+
+        public async Task<int> GetOwnerIdByProject(int projectId)
+        {
+            var res = await _context
+                .Projects
+                .Where(p => p.Id == projectId)
+                .Select(p => p.OwnerId)
+                .FirstOrDefaultAsync();
+            return res;
+        }
+
         public async Task<IDataResult<Project>> Update(int id, UpdateProjectDto updateProjectDto)
         {
             var projectToUpdate = await _context.Projects.Where(p => p.Id == id).FirstOrDefaultAsync();
@@ -101,7 +126,7 @@ namespace Teapot.Business.Concrete.Projects
                 projectToUpdate.Description = updateProjectDto.Description;
                 _context.Projects.Update(projectToUpdate);
                 await _context.SaveChangesAsync();
-                return new SuccessDataResult<Project>(projectToUpdate,"project updated");    
+                return new SuccessDataResult<Project>(projectToUpdate, "project updated");
             }
             return new ErrorDataResult<Project>("project cannot updated");
 

@@ -21,7 +21,7 @@ namespace Teapot.Business.Concrete.Invites
         Task<IDataResult<InviteListDto>> Update(int id, UpdateInviteDto updateInviteDto);
         Task<IDataResult<InviteListDto>> GetInvitesByContributorIdAndProjectId(int contributorId, int projectId);
 
-        Task<IDataResult<InviteListDto>> GetInviteByProjectId( int projectId);
+        Task<IDataResult<List<InviteListDto>>> GetInviteByProjectId( int projectId);
  
     }
 }

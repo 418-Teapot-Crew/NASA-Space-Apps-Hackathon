@@ -82,6 +82,16 @@ namespace Teapot.Business.Concrete.Projects
             return new ErrorDataResult<ProjectListDto>("project cannot get");
         }
 
+        public async Task<IDataResult<List<Project>>> GetProjectsByUserId(int userId)
+        {
+            var projects = await _context.Projects.Where(p => p.OwnerId == userId).ToListAsync();
+            if (projects!= null)
+            {
+                return new SuccessDataResult<List<Project>>(projects, "projecst listed by user id");
+            }
+            return new ErrorDataResult<List<Project>>("projects cannot listed by user id");
+        }
+
         public async Task<IDataResult<Project>> Update(int id, UpdateProjectDto updateProjectDto)
         {
             var projectToUpdate = await _context.Projects.Where(p => p.Id == id).FirstOrDefaultAsync();

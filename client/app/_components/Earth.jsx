@@ -40,8 +40,6 @@ function Earth() {
 export default function EartCanvas() {
   return (
     <Canvas className="cursor-pointer">
-      <ambientLight intensity={0.9} />
-      <directionalLight intensity={4.5} position={[1, 0.75, 0.25]} />
       <OrbitControls
         autoRotate
         enableZoom={false}
@@ -49,6 +47,8 @@ export default function EartCanvas() {
         minPolarAngle={Math.PI / 2}
         enablePan={false}
       />
+      <ambientLight intensity={2} />
+      <directionalLight intensity={4.5} position={[0.5, 2, 0.2]} />
       <Earth />
     </Canvas>
   );

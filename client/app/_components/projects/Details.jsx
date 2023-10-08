@@ -11,27 +11,21 @@ const Details = ({ project }) => {
 
       <ContentBody id={"Details"} isOpen={isOpen}>
         <div className="flex flex-col">
-          <Row
-            label={"Owner of Project"}
-            value={project?.owner?.firstName + " " + project?.owner?.lastName}
-          />
           <div className="bg-gray-50 py-2 px-12 mb-2">
             <span className="font-bold ">Project URL : </span>
             <a
-              href={project?.projectURL}
+              href={project?.project_url_external}
               target="_blank"
               className="underline text-title"
             >
-              {project?.projectURL}
+              {project?.project_url_external}
             </a>
           </div>
-          <Row label={"Geographic Scope"} value={project?.geographicScope} />
-          <Row label={"Project Status"} value={project?.projectStatus} />
-          <Row label={"Start Date"} value={project?.startDate} />
+          <Row label={"Geographic Scope"} value={project?.geographic_scope} />
+          <Row label={"Project Status"} value={project?.project_status} />
+          <Row label={"Start Date"} value={project?.start_date} />
           <Row label={"Project Contact"} value={project?.projectContact} />
-          <Row label={"Sponsors"} value={project?.sponsors} />
-          <Row label={"Fields of Science"} value={project?.fieldsOfScience} />
-          <Row label={"Intented Outcomes"} value={project?.intendedOutcomes} />
+          <Row label={"Fields of Science"} value={project?.fields_of_science} />
         </div>
       </ContentBody>
     </div>

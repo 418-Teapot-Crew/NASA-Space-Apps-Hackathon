@@ -138,12 +138,12 @@ const Menu = () => {
                   </li>
                   <li>
                     <Link
-                      href={"/projects"}
+                      href={"/projects/add"}
                       className={`custom-link ${
-                        path === "/projects" ? "bg-white text-black" : ""
+                        path === "/projects/add" ? "bg-white text-black" : ""
                       }`}
                     >
-                      Projects
+                      Share Project
                     </Link>
                   </li>
                 </ul>

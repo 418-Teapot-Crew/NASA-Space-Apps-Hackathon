@@ -1,7 +1,10 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import ParticleBg from "./ParticleBg";
+import dynamic from "next/dynamic";
+
+const ParticleBg = dynamic(() => import("./ParticleBg"), {
+  ssr: false,
+});
 
 export default function Loading({ progress, setProgress }) {
   useEffect(() => {

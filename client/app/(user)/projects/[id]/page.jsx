@@ -105,7 +105,7 @@ const ProjectDetail = ({ params }) => {
         <div className="flex flex-col flex-1 gap-2">
           <div className="flex items-center justify-between w-full">
             <span className="text-4xl font-extrabold text-title">
-              {project.title}
+              {project?.project_name}
             </span>
             {contributor === null ? (
               <button
@@ -117,11 +117,13 @@ const ProjectDetail = ({ params }) => {
               </button>
             ) : (
               <div className="bg-white  text-navbar border border-navbar hover:text-white hover:bg-navbar py-2 px-3 transition-all duration-200 rounded font-bold">
-                Request {contributor?.status ? "Accepted" : "Waiting"}
+                Request
               </div>
             )}
           </div>
-          <span className="text-base text-justify">{project.description}</span>
+          <span className="text-base text-justify">
+            {project?.project_description}
+          </span>
         </div>
       </div>
       <Details project={project} />

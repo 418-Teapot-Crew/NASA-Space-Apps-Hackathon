@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import { getUser, putUser } from "../../_api/user";
 import { useAuthContext } from "../../_contexts/AuthContext";
 import FileUpload from "../../_components/FileUpload";
-import ParticleBg from "../../_components/ParticleBg";
+import dynamic from "next/dynamic";
+const ParticleBg = dynamic(() => import("../../_components/ParticleBg"), {
+  ssr: false,
+});
 
 const Profile = () => {
   const [profile, setProfile] = useState({

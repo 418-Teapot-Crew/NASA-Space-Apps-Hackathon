@@ -2,11 +2,14 @@
 import toast from "react-hot-toast";
 import { addFile } from "../../../_api/projectImages";
 import { createProject } from "../../../_api/projects";
-import ParticleBg from "../../../_components/ParticleBg";
+const ParticleBg = dynamic(() => import("../../../_components/ParticleBg"), {
+  ssr: false,
+});
 import { useEffect, useState } from "react";
 import { BiCloudUpload } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../../../_contexts/AuthContext";
+import dynamic from "next/dynamic";
 
 const AddProject = () => {
   const [values, setValues] = useState({});

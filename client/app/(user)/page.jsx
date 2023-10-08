@@ -1,9 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
-import ParticleBg from "../_components/ParticleBg";
-import Earth from "../_components/Earth";
+const Earth = dynamic(() => import("../_components/Earth"), { ssr: false });
+const ParticleBg = dynamic(() => import("../_components/ParticleBg"), {
+  ssr: false,
+});
 import Link from "next/link";
 import { useAuthContext } from "../_contexts/AuthContext";
+import dynamic from "next/dynamic";
 
 export default function Home() {
   const { state } = useAuthContext();

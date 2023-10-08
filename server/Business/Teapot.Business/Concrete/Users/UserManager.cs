@@ -41,7 +41,7 @@ namespace Teapot.Business.Concrete.Users
         public async Task<IDataResult<List<UserListDto>>> GetAll()
         {
             
-            var users = await _context.Users.Select(u => new UserListDto { Id = u.Id, Email = u.Email, FirstName = u.FirstName, LastName = u.LastName, Status = u.Status }).ToListAsync();
+            var users = await _context.Users.Select(u => new UserListDto { Id = u.Id, Email = u.Email, FirstName = u.FirstName, LastName = u.LastName, Status = u.Status, Description = u.Description }).ToListAsync();
             if (users != null)
             {
                 return new SuccessDataResult<List<UserListDto>>(users, "users listed");
@@ -51,7 +51,7 @@ namespace Teapot.Business.Concrete.Users
 
         public async Task<IDataResult<UserListDto>> GetById(int id)
         {
-            var user = await _context.Users.Where(u => u.Id == id).Select(u=> new UserListDto { Id = u.Id ,Email = u.Email, FirstName = u.FirstName,LastName = u.LastName,Status = u.Status}).FirstOrDefaultAsync();
+            var user = await _context.Users.Where(u => u.Id == id).Select(u=> new UserListDto { Id = u.Id ,Email = u.Email, FirstName = u.FirstName,LastName = u.LastName,Status = u.Status,Description = u.Description }).FirstOrDefaultAsync();
             if (user != null)
             {
                 return new SuccessDataResult<UserListDto>(user, "user get");
@@ -95,6 +95,7 @@ namespace Teapot.Business.Concrete.Users
                     Id = userToUpdate.Id,
                     FirstName = userToUpdate.FirstName,
                     LastName = userToUpdate.LastName,   
+                    Description = userToUpdate.Description,
                    Email = userToUpdate.Email,
                    Status = userToUpdate.Status
                 },"user updated");

@@ -8,12 +8,12 @@ const ProjectCard = ({ project }) => {
         className="flex flex-col  gap-4 group"
         href={`/projects/${project?.id}`}
       >
-        <div className="relative flex    h-48 w-60 ">
+        <div className="relative flex items-center justify-center h-48 w-60 ">
           <Image
-            src={"/assets/team-logo.png"}
+            src={"/assets/spaceapps-logo.jpg"}
             fill
             alt=""
-            className="object-cover group-hover:scale-105 transform transition-transform rounded-md"
+            className="object-contain self-center group-hover:scale-105 transform transition-transform rounded-md"
           />
         </div>
         <div className="flex flex-col gap-2">

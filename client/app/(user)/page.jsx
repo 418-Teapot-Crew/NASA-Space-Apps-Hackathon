@@ -40,14 +40,14 @@ export default function Home() {
           {!state?.isLoggedIn ? (
             <Link
               href={"/signup"}
-              className="bg-white border-2 border-[#375bec] text-[#375bec] hover:text-white hover:bg-[#375bec] rounded-md py-1.5 px-5 transition-all duration-200"
+              className="bg-white border-2 border-[#375bec] text-[#375bec] hover:text-white hover:bg-[#375bec] rounded-md py-1.5 px-5 transition-all duration-200 tracking-wider"
             >
               Get Started
             </Link>
           ) : (
             <Link
               href={"/explore"}
-              className="bg-white border-2 border-[#375bec] text-[#375bec] hover:text-white hover:bg-[#375bec] rounded-md py-1.5 px-5 transition-all duration-200"
+              className="bg-white border-2 border-[#375bec] text-[#375bec] hover:text-white hover:bg-[#375bec] rounded-md py-1.5 px-5 transition-all duration-200 tracking-wider"
             >
               Explore the Open Science
             </Link>

@@ -31,9 +31,11 @@ export default function AuthLayout({ children }) {
               />
             </Link>
             <p className="font-light tracking-widest">
-              Acme Inc “This library has saved me countless hours of work and
-              helped me deliver stunning designs to my clients faster than ever
-              before.”
+              "Unlocking the doors to a world of endless possibilities, our
+              project utilizes artificial intelligence to seamlessly connect
+              users with Open Science projects tailored to their unique
+              profiles. Embrace the future of discovery, where science meets
+              individuality."
             </p>
           </div>
           <div className="bg-[#ffffff] flex items-center justify-center relative">

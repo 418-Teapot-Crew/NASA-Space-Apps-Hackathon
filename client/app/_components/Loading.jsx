@@ -28,11 +28,8 @@ export default function Loading() {
               style={{ width: `${progress}%` }}
             ></div>
           </div>
-          <p className="px-44 mt-4 text-lg font-thin italic text-center">
-            "Unlocking the doors to a world of endless possibilities, our
-            project utilizes artificial intelligence to seamlessly connect users
-            with Open Science projects tailored to their unique profiles.
-            Embrace the future of discovery, where science meets individuality."
+          <p className="px-44 mt-4 text-xl font-thin italic text-center">
+            The magic is happening, sorry for the wait.
           </p>
         </div>
       )}

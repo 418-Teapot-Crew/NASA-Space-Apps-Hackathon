@@ -1,8 +1,12 @@
-import { getMockData } from "../../../_api/user";
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
+import { useAuthContext } from "../../../_contexts/AuthContext";
 
 const MyProjects = () => {
-  const data = getMockData();
+  const { state } = useAuthContext();
+  const [data, setData] = useState([]);
+  useEffect(() => {}, [state]);
+
   return (
     <div className="flex gap-5 flex-col  flex-1">
       <div className="flex flex-col h-1/2 overflow-x-auto shadow-md sm:rounded-lg">
@@ -21,7 +25,7 @@ const MyProjects = () => {
             </tr>
           </thead>
           <tbody>
-            {data.projects.map((project, i) => (
+            {data.map((project, i) => (
               <tr key={i} className="bg-white border-b  hover:bg-gray-50">
                 <td
                   scope="row"

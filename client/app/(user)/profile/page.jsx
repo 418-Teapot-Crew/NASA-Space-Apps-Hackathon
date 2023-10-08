@@ -1,26 +1,37 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { getUser } from "../../_api/user";
+import { useAuthContext } from "../../_contexts/AuthContext";
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
+  const { state } = useAuthContext();
 
   useEffect(() => {
-    getUser().then((res) => setProfile(res.data.data));
+    getUser(state?.user?.id).then((res) => setProfile(res.data.data));
   }, []);
 
   const handleSubmit = () => {
     console.log(profile);
   };
 
+  console.log(profile);
+
   return (
     <div className="flex-1 flex flex-col gap-3  self-start">
       <input
         type="text"
-        placeholder="Fullname"
+        placeholder="First Name"
         className="py-2 px-4 outline-none w-full border border-slate-700 rounded"
-        value={profile.fullname}
-        onChange={(e) => setProfile({ ...profile, fullname: e.target.value })}
+        value={profile.firstName}
+        onChange={(e) => setProfile({ ...profile, firstName: e.target.value })}
+      />
+      <input
+        type="text"
+        placeholder="Last Name"
+        className="py-2 px-4 outline-none w-full border border-slate-700 rounded"
+        value={profile.firstName}
+        onChange={(e) => setProfile({ ...profile, lastName: e.target.value })}
       />
 
       <input

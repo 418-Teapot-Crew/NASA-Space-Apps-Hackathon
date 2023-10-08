@@ -5,13 +5,14 @@ import { RxCross1 } from "react-icons/rx";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { CgMenuMotion } from "react-icons/cg";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuthContext } from "../_contexts/AuthContext";
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { state, dispatch } = useAuthContext();
   const path = usePathname();
+  const router = useRouter();
   const toggle = () => setIsOpen(!isOpen);
   const variants = {
     hidden: { opacity: 0, x: 0, y: -200 },
@@ -85,7 +86,10 @@ const Menu = () => {
                           className={`custom-link ${
                             path === "---" ? "bg-white" : ""
                           }`}
-                          onClick={() => dispatch({ type: "LOGOUT" })}
+                          onClick={() => {
+                            dispatch({ type: "LOGOUT" });
+                            router.push("/");
+                          }}
                         >
                           Logout
                         </button>

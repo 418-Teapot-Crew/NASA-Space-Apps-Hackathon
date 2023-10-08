@@ -2,11 +2,15 @@ import { instance as axios } from "./axiosInstance";
 
 const createUser = async (data) => axios.post("/api/Auth/register", data);
 const deleteUser = async (id) => axios.delete(`/users/${id}`);
-const putUser = async (id, data) => axios.put(`/api/Users/update/${id}`, data);
+const putUser = async (id, data) =>
+  axios.put(`/api/Users/update?id=${id}`, data);
 
 const getUsers = async () => axios.get("/api/Users/getall");
 
 const getUser = async (id) => axios.get(`/api/Users/getbyid?id=${id}`);
+
+/* const updateResume = async (formData) =>
+  axios.post("https://multicoloredroundcad.uysalibov.repl.co/resume", formData); */
 
 const getMockData = () => {
   return {

@@ -2,15 +2,29 @@
 import React, { useEffect, useState } from "react";
 import { getUser, putUser } from "../../_api/user";
 import { useAuthContext } from "../../_contexts/AuthContext";
+import FileUpload from "../../_components/FileUpload";
 
 const Profile = () => {
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    description: "",
+  });
   const { state } = useAuthContext();
+
+  console.log(profile);
 
   const fetchProfile = async () => {
     try {
       const res = await getUser(state?.user?.id);
-      setProfile(res.data);
+      console.log("res data", res.data);
+      setProfile({
+        firstName: res.data.data.firstName,
+        lastName: res.data.data.lastName,
+        email: res.data.data.email,
+        description: res.data.data.description,
+      });
     } catch (e) {
       console.log(e);
     }
@@ -23,7 +37,13 @@ const Profile = () => {
   const handleSubmit = async () => {
     try {
       const res = await putUser(state?.user?.id, profile);
-      if (res.success) setProfile(res.data);
+      if (res.success)
+        setProfile({
+          firstName: res.data.data.firstName,
+          lastName: res.data.data.lastName,
+          email: res.data.data.email,
+          description: res.data.data.description,
+        });
     } catch (e) {
       console.log(e);
     }
@@ -66,9 +86,7 @@ const Profile = () => {
         rows="10"
       ></textarea>
 
-      <button className="w-full bg-navbar text-white text-center py-2 rounded">
-        Upload CV
-      </button>
+      <FileUpload />
       <button
         className="w-full bg-navbar text-white text-center py-2 rounded"
         type="button"

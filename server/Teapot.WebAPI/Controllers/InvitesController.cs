@@ -63,9 +63,9 @@ namespace Teapot.WebAPI.Controllers
         }
 
         [HttpGet("getbyprojectidandcontributorid")]
-        public async Task<IActionResult> GetByProjectIdAndContributorId(int projectId,int contributor)
+        public async Task<IActionResult> GetByProjectIdAndContributorId(int projectId,int contributorId)
         {
-            var result = await _inviteService.GetInvitesByContributorIdAndProjectId(contributor, projectId);
+            var result = await _inviteService.GetInvitesByContributorIdAndProjectId(contributorId, projectId);
             if (result.Success)
             {
                 return Ok(result);
@@ -84,5 +84,16 @@ namespace Teapot.WebAPI.Controllers
             return BadRequest(result);
         }
 
+
+        [HttpGet("getbyprojectid")]
+        public async Task<IActionResult> GetByProjectId(int projectId)
+        {
+            var result = await _inviteService.GetInviteByProjectId( projectId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

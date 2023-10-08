@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Teapot.Business.Concrete.Auths;
+using Teapot.Business.Concrete.ChatHistories;
 using Teapot.Business.Concrete.Chats;
 using Teapot.Business.Concrete.Invites;
 using Teapot.Business.Concrete.Messages;
@@ -26,6 +27,7 @@ namespace Teapot.Business
             services.AddScoped<IProjectContributorService, ProjectContributorManager>();
             services.AddScoped<IImageService, CloudinaryImageService>();
             services.AddScoped<IProjectFileService, ProjectFileManager>();
+            services.AddScoped<IChatHistoryService, ChatHistoryManager>();
 
             services.AddScoped<IInviteService, InviteManager>();
 

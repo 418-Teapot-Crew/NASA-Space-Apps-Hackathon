@@ -10,6 +10,10 @@ using Teapot.DataAccess.Contexts;
 using Teapot.Business.Concrete.Messages.Dto;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Octokit;
+using Project = Teapot.Entities.Concrete.Project;
+using Teapot.Business.Concrete.Invites.Dto;
+using Teapot.Business.Concrete.Projects.Dto;
 
 namespace Teapot.Business.Concrete.ProjectContributors
 {
@@ -65,6 +69,24 @@ namespace Teapot.Business.Concrete.ProjectContributors
                 return new SuccessDataResult<List<AppUser>>(contributors, "project contributers listed");
             }
             return new ErrorDataResult<List<AppUser>>("project contributers cannot listed");
+        }
+
+        public async Task<IDataResult<List<Projects.Dto.ProjectListDto>>> GetProjectsByUserId(int userId)
+        {
+            var projects = await _context.ProjectContributors.Where(p => p.ContributorId == userId).Select(u=> u.Project).Select(u =>  new Projects.Dto.ProjectListDto
+            {
+                Id = u.Id,
+                Description = u.Description,
+                OwnerId = u.OwnerId,
+                Title = u.Title,
+                Contributors = u.Contributors.Select(u => new ProjectListContributorDto { Id = u.ContributorId, Email = u.Contributor.Email, FirstName = u.Contributor.FirstName, LastName = u.Contributor.LastName, }),
+                Owner = new ProjectListOwnerDto { Id = u.Owner.Id, FirstName = u.Owner.FirstName, LastName = u.Owner.LastName, Email = u.Owner.Email },
+            }).ToListAsync();
+            if (projects != null)
+            {
+                return new SuccessDataResult<List<Projects.Dto.ProjectListDto>>(projects, "project contributers listed");
+            }
+            return new ErrorDataResult<List<Projects.Dto.ProjectListDto>>("project contributers cannot listed");
         }
     }
 }

@@ -16,7 +16,7 @@ const Contributers = ({ project }) => {
         <div className="flex flex-col">
           {project?.contributers?.map((contributer) => (
             <div className="bg-gray-50 font-bold text-slate-900  hover:bg-slate-700 hover:text-white cursor-pointer py-2 px-12 mb-2">
-              {contributer}
+              {contributer.firstName + " " + contributer.lastName}
             </div>
           ))}
         </div>

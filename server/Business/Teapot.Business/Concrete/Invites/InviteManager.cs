@@ -90,6 +90,24 @@ namespace Teapot.Business.Concrete.Invites
             return new ErrorDataResult<InviteListDto>("invite cannot get");
         }
 
+        public async Task<IDataResult<InviteListDto>> GetInviteByProjectId(int projectId)
+        {
+            var invite = await _context.Invites.Where(c => c.ProjectId == projectId).Select(i => new InviteListDto
+            {
+                Id = i.Id,
+                ProjectId = i.ProjectId,
+                Project = new ProjectListDto { Id = i.Project.Id, Title = i.Project.Title, Description = i.Project.Description, OwnerId = i.Project.OwnerId, Contributors = i.Project.Contributors.Select(x => new ProjectListContributorDto { Id = x.Id, Email = x.Contributor.Email, LastName = x.Contributor.LastName, FirstName = x.Contributor.FirstName }) },
+                ContributorId = i.ContributorId,
+                Contributor = new ContributorListDto { Id = i.ContributorId, Email = i.Contributor.Email, FirstName = i.Contributor.FirstName, LastName = i.Contributor.LastName },
+                Status = i.Status
+            }).FirstOrDefaultAsync();
+            if (invite != null)
+            {
+                return new SuccessDataResult<InviteListDto>(invite,"get invite by prorject id successfull");
+            }
+            return new ErrorDataResult<InviteListDto>("get invite by project id not successfull");
+        }
+
         public async  Task<IDataResult<InviteListDto>> GetInvitesByContributorIdAndProjectId(int contributorId, int projectId)
         {
             var invite = await _context.Invites.Where(i=> i.Id == contributorId && i.ProjectId == projectId).FirstOrDefaultAsync();

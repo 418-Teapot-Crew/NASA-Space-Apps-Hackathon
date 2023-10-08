@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Teapot.Business.Concrete.Users.Dto;
-using Teapot.Business.Concrete.Users;
-using Teapot.Entities.Concrete;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Teapot.Business.Concrete.Projects;
 using Teapot.Business.Concrete.Projects.Dto;
+using Teapot.Business.Concrete.ProjectContributors;
 
 namespace Teapot.WebAPI.Controllers
 {
@@ -12,10 +11,12 @@ namespace Teapot.WebAPI.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly IProjectService _projectService;
+        private readonly IProjectContributorService _projectContributorService;
 
-        public ProjectsController(IProjectService projectService)
+        public ProjectsController(IProjectService projectService, IProjectContributorService projectContributorService)
         {
             _projectService = projectService;
+            _projectContributorService = projectContributorService;
         }
 
         [HttpPost("add")]
@@ -52,6 +53,17 @@ namespace Teapot.WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [Authorize, HttpGet("getMessages/{projectId}")]
+        public async Task<IActionResult> GetMessages([FromRoute] int projectId)
+        {
+            var result = await _projectService.GetMessages(projectId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpGet("getbyid")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -75,7 +87,7 @@ namespace Teapot.WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getbyuserid")]
+        [HttpGet("getprojectsbyuserid")]
         public async Task<IActionResult> GetByUserId(int userId)
         {
             var result = await _projectService.GetProjectsByUserId(userId);
@@ -86,5 +98,15 @@ namespace Teapot.WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getcontributesbyuserid")]
+        public async Task<IActionResult> GetContributeByUserId(int userId)
+        {
+            var result = await _projectContributorService.GetProjectsByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

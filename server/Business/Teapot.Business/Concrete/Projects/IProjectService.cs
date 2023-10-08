@@ -1,10 +1,5 @@
-﻿using Teapot.Core.Utilities.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Teapot.Business.Concrete.Projects.Dto;
+﻿using Teapot.Business.Concrete.Projects.Dto;
+using Teapot.Core.Utilities.Results;
 using Teapot.Entities.Concrete;
 
 namespace Teapot.Business.Concrete.Projects
@@ -15,7 +10,9 @@ namespace Teapot.Business.Concrete.Projects
         Task<IDataResult<ProjectListDto>> GetById(int id);
         Task<IDataResult<List<ProjectListDto>>> GetAll();
         Task<IResult> Delete(int id);
-        Task<IDataResult<Project>> Update(int id,UpdateProjectDto updateProjectDto);
         Task<IDataResult<List<Project>>> GetProjectsByUserId(int userId);
+        Task<IDataResult<Project>> Update(int id, UpdateProjectDto updateProjectDto);
+        Task<int> GetOwnerIdByProject(int projectId);
+        Task<IDataResult<List<ChatMessageDto>>> GetMessages(int projectId);
     }
 }

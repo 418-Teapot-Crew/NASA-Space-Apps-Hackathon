@@ -5,6 +5,8 @@ import Contributers from "../../../_components/projects/Contributers";
 import ChatModal from "../../../_components/ChatModal";
 import { BsFillChatLeftFill } from "react-icons/bs";
 import { getProject } from "../../../_api/projects";
+import { addInvite } from "../../../_api/invites";
+import { useAuthContext } from "../../../_contexts/AuthContext";
 
 const messages = [
   { id: 1, text: "Merhaba, nasıl yardımcı olabilirim?", senderId: 1 },
@@ -63,14 +65,22 @@ const messages = [
 const ProjectDetail = ({ params }) => {
   const [openChatModal, setOpenChatModal] = useState(false);
   const [project, setProject] = useState({});
+  const { state } = useAuthContext();
 
   useEffect(() => {
     getProject(params.id).then((res) => setProject(res.data.data));
   }, [params]);
 
-  const supportProject = () => {
-    console.log("support project");
+  const handleInvite = async () => {
+    try {
+      const res = await addInvite({
+        contributorId: state?.user?.id,
+        projectId: params.id,
+      });
+    } catch (error) {}
   };
+
+  console.log(project);
 
   return (
     <div className="py-[180px] font-light min-h-screen">
@@ -90,7 +100,7 @@ const ProjectDetail = ({ params }) => {
             <button
               type="button"
               className="bg-white text-navbar border border-navbar hover:text-white hover:bg-navbar py-2 px-3 transition-all duration-200 rounded font-bold"
-              onClick={() => supportProject()}
+              onClick={() => handleInvite()}
             >
               Support Request for Project
             </button>

@@ -27,7 +27,7 @@ const AddProject = () => {
   useEffect(() => {
     setValues({
       ...values,
-      ["ownerId"]: state.user.id,
+      ["ownerId"]: state?.user?.id,
     });
   }, []);
 
@@ -53,19 +53,22 @@ const AddProject = () => {
   };
 
   return (
-    <div className="pt-[100px] pb-12 flex flex-col gap-12 items-center">
+    <div className="pt-[120px] pb-12 flex flex-col gap-6 items-center">
       <ParticleBg />
-      <h1 className="font-bold text-4xl">Share Your Project</h1>
+
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col  bg-white  gap-2 w-1/2 p-12 rounded-md shadow-2xl"
+        className="flex flex-col  bg-white  gap-3 w-1/2 p-12 rounded-md shadow-2xl"
       >
+        <h1 className="font-bold text-4xl self-center mb-3">
+          Share Your Project
+        </h1>
         <input
           type="text"
           name="title"
           onChange={handleChange}
           placeholder="Project Title"
-          className="p-2 w-full rounded-sm border"
+          className="p-2 w-full rounded border border-black"
         />
 
         <textarea
@@ -73,16 +76,16 @@ const AddProject = () => {
           placeholder="Description"
           name="description"
           onChange={handleChange}
-          className="p-2 w-full rounded-sm border"
+          className="p-2 w-full rounded border border-black"
         />
         <input
           type="text"
           name="url"
           onChange={handleChange}
           placeholder="Project URL"
-          className="p-2 w-full rounded-sm border"
+          className="p-2 w-full rounded border border-black"
         />
-        <select className="p-2 w-full rounded-sm border">
+        <select className="p-2 w-full rounded border border-black">
           <option value="">Select Status</option>
           <option value="">Active</option>
           <option value="">Passive</option>
@@ -90,7 +93,7 @@ const AddProject = () => {
         <input
           type="date"
           placeholder="ds"
-          className="p-2 w-full rounded-sm border"
+          className="p-2 w-full rounded border border-black"
           name=""
           id=""
         />
@@ -116,8 +119,7 @@ const AddProject = () => {
               onChange={handleImageChange}
               name="image"
               type="file"
-              x
-              className="hidden"
+              className=" hidden"
             />
           </label>
         </div>

@@ -74,5 +74,17 @@ namespace Teapot.WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getbyuserid")]
+        public async Task<IActionResult> GetByUserId(int userId)
+        {
+            var result = await _projectService.GetProjectsByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
     }
 }

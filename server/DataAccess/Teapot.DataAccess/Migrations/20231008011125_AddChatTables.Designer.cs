@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Teapot.DataAccess.Contexts;
@@ -11,9 +12,11 @@ using Teapot.DataAccess.Contexts;
 namespace Teapot.DataAccess.Migrations
 {
     [DbContext(typeof(Teapot418DbContext))]
-    partial class Teapot418DbContextModelSnapshot : ModelSnapshot
+    [Migration("20231008011125_AddChatTables")]
+    partial class AddChatTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,11 +79,6 @@ namespace Teapot.DataAccess.Migrations
                         .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("description");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -161,6 +159,10 @@ namespace Teapot.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("message");
+
+                    b.Property<DateTime>("MessageTime")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("message_time");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("integer")
@@ -260,31 +262,14 @@ namespace Teapot.DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("date");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("description");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("text")
-                        .HasColumnName("image_url");
-
                     b.Property<int>("OwnerId")
                         .HasColumnType("integer")
                         .HasColumnName("owner_id");
-
-                    b.Property<string>("ProjectUrl")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("project_url");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("boolean")
-                        .HasColumnName("status");
 
                     b.Property<string>("Title")
                         .IsRequired()

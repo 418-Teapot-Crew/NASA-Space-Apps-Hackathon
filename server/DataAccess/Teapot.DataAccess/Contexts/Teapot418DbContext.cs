@@ -19,5 +19,6 @@ namespace Teapot.DataAccess.Contexts
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
         public DbSet<ProjectFile> ProjectFiles { get; set; }
+        public DbSet<ChatHistory> ChatHistories { get; set; }
     }
 }

@@ -10,6 +10,8 @@ using Teapot.DataAccess.Contexts;
 using Teapot.Business.Concrete.Messages.Dto;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Octokit;
+using Project = Teapot.Entities.Concrete.Project;
 
 namespace Teapot.Business.Concrete.ProjectContributors
 {
@@ -66,5 +68,15 @@ namespace Teapot.Business.Concrete.ProjectContributors
             }
             return new ErrorDataResult<List<AppUser>>("project contributers cannot listed");
         }
+
+  /*      public async Task<IDataResult<List<Entities.Concrete.Project>>> GetProjectsByUserId(int userId)
+        {
+            var projects = await _context.ProjectContributors.Where(p => p.ContributorId == userId).Select(p => p.Project).ToListAsync();
+            if (projects != null)
+            {
+                return new SuccessDataResult<List<Project>>(projects, "project contributers listed");
+            }
+            return new ErrorDataResult<List<Project>>("project contributers cannot listed");
+        }*/
     }
 }

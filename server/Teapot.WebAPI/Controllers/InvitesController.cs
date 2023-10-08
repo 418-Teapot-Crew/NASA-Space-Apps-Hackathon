@@ -63,9 +63,9 @@ namespace Teapot.WebAPI.Controllers
         }
 
         [HttpGet("getbyprojectidandcontributorid")]
-        public async Task<IActionResult> GetByProjectIdAndContributorId(int projectId,int contributor)
+        public async Task<IActionResult> GetByProjectIdAndContributorId(int projectId,int contributorId)
         {
-            var result = await _inviteService.GetInvitesByContributorIdAndProjectId(contributor, projectId);
+            var result = await _inviteService.GetInvitesByContributorIdAndProjectId(contributorId, projectId);
             if (result.Success)
             {
                 return Ok(result);

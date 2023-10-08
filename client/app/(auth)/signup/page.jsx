@@ -50,7 +50,7 @@ const Signup = () => {
         >
           <input
             type="text"
-            name="first_name"
+            name="firstName"
             className={custom_input}
             placeholder="First name"
             onChange={handleChange}
@@ -58,7 +58,7 @@ const Signup = () => {
           />
           <input
             type="text"
-            name="last_name"
+            name="lastName"
             className={custom_input}
             placeholder="Last name"
             onChange={handleChange}

@@ -84,5 +84,16 @@ namespace Teapot.WebAPI.Controllers
             return BadRequest(result);
         }
 
+
+        [HttpGet("getbyprojectid")]
+        public async Task<IActionResult> GetByProjectId(int projectId)
+        {
+            var result = await _inviteService.GetInviteByProjectId( projectId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

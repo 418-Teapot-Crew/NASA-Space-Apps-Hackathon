@@ -88,6 +88,7 @@ namespace Teapot.Business.Concrete.Users
             {
                 userToUpdate.FirstName = updateUserDto.FirstName;
                 userToUpdate.LastName = updateUserDto.LastName;
+                userToUpdate.Description = updateUserDto.Description;
                 _context.Users.Update(userToUpdate);
                 await _context.SaveChangesAsync();
                 return new SuccessDataResult<UserListDto>(new UserListDto {

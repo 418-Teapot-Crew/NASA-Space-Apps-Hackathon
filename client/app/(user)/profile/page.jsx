@@ -1,28 +1,49 @@
 "use client";
-import React, { useState } from "react";
-
-const profileObj = {
-  fullname: "John Doe",
-  description:
-    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam, perferendis id! Rerum perferendis iure et minus unde non recusandae ullam! Voluptate laboriosam reiciendis culpa quas reprehenderit nulla tempore quam id repudiandae? Maxime, exercitationem esse? Mollitia provident voluptatem harum recusandae fugit, debitis vel, modi consequuntur amet, delectus voluptas tenetur earum ducimus quod ipsum. Dolor quae numquam nam dicta libero modi, aspernatur culpa nemo! Earum similique natus esse et at, dolorem eligendi veniam accusantium reprehenderit! Rerum quos tenetur veniam quod illum accusantium! Asperiores quas suscipit reprehenderit rem dolor, sed laboriosam tempore, consequatur enim eius voluptates distinctio velit ex veritatis ut ab? Voluptatem illum tempora ab autem, consequuntur soluta mollitia id quisquam, repudiandae beatae quam sapiente odio alias in ratione vel, consectetur aut aperiam obcaecati harum quis nemo! Recusandae, dolores. Perspiciatis odit adipisci at! Minus ipsum repellat quis hic quaerat fuga quod aliquam porro architecto, sed repudiandae sapiente ab corporis est pariatur quibusdam odio, ut ipsam assumenda possimus dicta cumque! Quis facilis harum tempora! Cupiditate accusamus dolore repellendus ex, officiis enim, totam veniam iste possimus eligendi voluptatum, iure mollitia? Optio nostrum minima dignissimos aliquid dolore, laboriosam illo. Ullam ratione dignissimos inventore beatae quis explicabo laboriosam corrupti, doloribus eos ut minus cum expedita autem.",
-  email: "johndoe@example.com",
-};
+import React, { useEffect, useState } from "react";
+import { getUser, putUser } from "../../_api/user";
+import { useAuthContext } from "../../_contexts/AuthContext";
 
 const Profile = () => {
-  const [profile, setProfile] = useState(profileObj);
+  const [profile, setProfile] = useState({});
+  const { state } = useAuthContext();
 
-  const handleSubmit = () => {
-    console.log(profile);
+  const fetchProfile = async () => {
+    try {
+      const res = await getUser(state?.user?.id);
+      setProfile(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const handleSubmit = async () => {
+    try {
+      const res = await putUser(state?.user?.id, profile);
+      if (res.success) setProfile(res.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
     <div className="flex-1 flex flex-col gap-3  self-start">
       <input
         type="text"
-        placeholder="Fullname"
+        placeholder="First Name"
         className="py-2 px-4 outline-none w-full border border-slate-700 rounded"
-        value={profile.fullname}
-        onChange={(e) => setProfile({ ...profile, fullname: e.target.value })}
+        value={profile.firstName}
+        onChange={(e) => setProfile({ ...profile, firstName: e.target.value })}
+      />
+      <input
+        type="text"
+        placeholder="Last Name"
+        className="py-2 px-4 outline-none w-full border border-slate-700 rounded"
+        value={profile.lastName}
+        onChange={(e) => setProfile({ ...profile, lastName: e.target.value })}
       />
 
       <input
@@ -53,7 +74,7 @@ const Profile = () => {
         type="button"
         onClick={() => handleSubmit()}
       >
-        Submit
+        Save Profile
       </button>
     </div>
   );

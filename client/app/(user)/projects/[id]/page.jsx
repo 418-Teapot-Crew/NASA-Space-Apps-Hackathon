@@ -1,26 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Details from "../../../_components/projects/Details";
 import Contributers from "../../../_components/projects/Contributers";
 import ChatModal from "../../../_components/ChatModal";
 import { BsFillChatLeftFill } from "react-icons/bs";
-
-const project = {
-  id: 2,
-  title: "Proje 1",
-  description:
-    "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum eius accusantium laborum quae neque tenetur nisi perspiciatis labore  distinctio enim voluptatum iusto, sapiente quo ipsam at esse aperiam, saepe corporis explicabo odit corrupti voluptate perferendis. Voluptas consequuntur voluptatibus excepturi amet aperiam autem quas repellat ipsam omnis? Molestias laboriosam velit sunt tempora eaque nemoß doloremque a nulla, saepe cum rem repellat minus fugiat numquam iusto perferendis nostrum adipisci. Possimus fugiat voluptates perferendis repellendus. Recusandae harum omnis, asperiores vero odio tenetur quo, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum eius accusantium laborum quae neque tenetur nisi perspiciatis labore  distinctio enim voluptatum iusto, sapiente quo ipsam at esse aperiam, saepe corporis explicabo odit corrupti voluptate perferendis. Voluptas consequuntur voluptatibus excepturi amet aperiam autem quas repellat ipsam omnis? Molestias laboriosam velit sunt tempora eaque nemoß doloremque a nulla, saepe cum rem repellat minus fugiat numquam iusto perferendis nostrum adipisci. Possimus fugiat voluptates perferendis repellendus. Recusandae harum omnis, asperiores vero odio tenetur quo",
-  owner: "John Uysal",
-  contributers: ["Jane Karyagdi", "Alice Demir"],
-  projectURL: "https://github.com",
-  geographicScope: "Istanbul",
-  projectStatus: "Active - not recruiting volunteers",
-  startDate: "2021-10-10",
-  projectContact: "Wade.L.Eakle@spd02.usace.army.com",
-  sponsors: ["John Uysal", "Jane Karyagdi", "Alice Demir"],
-  fieldsOfScience: ["Computer Science", "Mathematics"],
-  intentedOutcomes: ["Software", "Hardware", "Civic"],
-};
+import { getProject } from "../../../_api/projects";
+import { addInvite, getUserInvite } from "../../../_api/invites";
+import { useAuthContext } from "../../../_contexts/AuthContext";
 
 // const messages = [
 //   { id: 1, text: "Merhaba, nasıl yardımcı olabilirim?", senderId: 1 },
@@ -78,12 +64,31 @@ const project = {
 
 const ProjectDetail = ({ params }) => {
   const [openChatModal, setOpenChatModal] = useState(false);
+  const [project, setProject] = useState({});
+  const [contributor, setContributor] = useState(null);
+  const [render, setRender] = useState(false);
+  const { state } = useAuthContext();
 
-  console.log("oarams", params);
+  useEffect(() => {
+    getProject(params.id).then((res) => setProject(res.data.data));
+    if (state?.user?.id !== "undefined") {
+      getUserInvite(state?.user?.id, params.id)
+        .then((res) => setContributor(res?.data?.data || null))
+        .catch((err) => console.log(err));
+    }
+  }, [params.id, state, render]);
 
-  const supportProject = () => {
-    console.log("support project");
+  const handleInvite = async () => {
+    try {
+      const res = await addInvite({
+        contributorId: state?.user?.id,
+        projectId: params.id,
+      });
+      setRender(!render);
+    } catch (error) {}
   };
+
+  console.log(contributor);
 
   return (
     <div className="py-[180px] font-light min-h-screen">
@@ -100,13 +105,19 @@ const ProjectDetail = ({ params }) => {
             <span className="text-4xl font-extrabold text-title">
               {project.title}
             </span>
-            <button
-              type="button"
-              className="bg-white text-navbar border border-navbar hover:text-white hover:bg-navbar py-2 px-3 transition-all duration-200 rounded font-bold"
-              onClick={() => supportProject()}
-            >
-              Support Request for Project
-            </button>
+            {contributor === null ? (
+              <button
+                type="button"
+                className="bg-white text-navbar border border-navbar hover:text-white hover:bg-navbar py-2 px-3 transition-all duration-200 rounded font-bold"
+                onClick={() => handleInvite()}
+              >
+                Support Request for Project
+              </button>
+            ) : (
+              <div className="bg-white  text-navbar border border-navbar hover:text-white hover:bg-navbar py-2 px-3 transition-all duration-200 rounded font-bold">
+                Request {contributor?.status ? "Accepted" : "Waiting"}
+              </div>
+            )}
           </div>
           <span className="text-base text-justify">{project.description}</span>
         </div>

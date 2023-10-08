@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Teapot.Business.Concrete.Projects;
 using Teapot.Business.Concrete.Projects.Dto;
+using Teapot.Business.Concrete.ProjectContributors;
 
 namespace Teapot.WebAPI.Controllers
 {
@@ -10,10 +11,12 @@ namespace Teapot.WebAPI.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly IProjectService _projectService;
+        private readonly IProjectContributorService _projectContributorService;
 
-        public ProjectsController(IProjectService projectService)
+        public ProjectsController(IProjectService projectService, IProjectContributorService projectContributorService)
         {
             _projectService = projectService;
+            _projectContributorService = projectContributorService;
         }
 
         [HttpPost("add")]
@@ -77,6 +80,28 @@ namespace Teapot.WebAPI.Controllers
         public async Task<IActionResult> Update(int id, UpdateProjectDto updateProjectDto)
         {
             var result = await _projectService.Update(id, updateProjectDto);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getprojectsbyuserid")]
+        public async Task<IActionResult> GetByUserId(int userId)
+        {
+            var result = await _projectService.GetProjectsByUserId(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcontributesbyuserid")]
+        public async Task<IActionResult> GetContributeByUserId(int userId)
+        {
+            var result = await _projectContributorService.GetProjectsByUserId(userId);
             if (result.Success)
             {
                 return Ok(result);

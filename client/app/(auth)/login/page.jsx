@@ -104,9 +104,9 @@ const Login = () => {
         Sign Up
       </Link>
 
-      <h2 className="text-2xl font-medium text-center tracking-wide">
-        Let's Begin Writing!
-      </h2>
+      <h1 className="m-0 font-thin self-center text-2xl">
+        <i>Let's</i> Explore Open Science Together
+      </h1>
 
       <div className="flex flex-col w-full">
         <form

@@ -29,15 +29,18 @@ instance.interceptors.response.use(
   },
 
   (error) => {
+    console.log(error.config.method);
     if (error?.response?.status === 401) {
       toast.error("Oturumunuz sona erdi. Lütfen tekrar giriş yapın.", {
         id: error.config.__loadingToastId,
       });
     }
     try {
-      toast.error(error?.response?.data?.message, {
-        id: error.config.__loadingToastId,
-      });
+      if (error.config.method !== "get") {
+        toast.error(error?.response?.data?.message, {
+          id: error.config.__loadingToastId,
+        });
+      }
     } catch (e) {
       toast.error("An Error Encourred", {
         id: error.config.__loadingToastId,

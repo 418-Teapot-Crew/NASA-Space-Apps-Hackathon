@@ -2,9 +2,11 @@ import { instance as axios } from "./axiosInstance";
 
 const createUser = async (data) => axios.post("/api/Auth/register", data);
 const deleteUser = async (id) => axios.delete(`/users/${id}`);
-const patchUser = async (id, data) => axios.patch(`/users/${id}`, data);
+const putUser = async (id, data) => axios.put(`/api/Users/update/${id}`, data);
 
-const getUsers = async () => axios.get("/users");
+const getUsers = async () => axios.get("/api/Users/getall");
+
+const getUser = async (id) => axios.get(`/api/Users/getbyid?id=${id}`);
 
 const getMockData = () => {
   return {
@@ -142,4 +144,4 @@ const getMockData = () => {
   };
 };
 
-export { createUser, deleteUser, patchUser, getUsers, getMockData };
+export { createUser, deleteUser, getUsers, getUser, getMockData, putUser };

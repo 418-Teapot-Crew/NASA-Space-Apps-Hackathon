@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Teapot.DataAccess.Contexts;
@@ -11,9 +12,11 @@ using Teapot.DataAccess.Contexts;
 namespace Teapot.DataAccess.Migrations
 {
     [DbContext(typeof(Teapot418DbContext))]
-    partial class Teapot418DbContextModelSnapshot : ModelSnapshot
+    [Migration("20231008060223_descriptionToUser")]
+    partial class descriptionToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,47 +149,6 @@ namespace Teapot.DataAccess.Migrations
                         .HasDatabaseName("ix_chats_project_owner_id");
 
                     b.ToTable("chats", (string)null);
-                });
-
-            modelBuilder.Entity("Teapot.Entities.Concrete.ChatHistory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("message");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("integer")
-                        .HasColumnName("project_id");
-
-                    b.Property<int>("ReceiverId")
-                        .HasColumnType("integer")
-                        .HasColumnName("receiver_id");
-
-                    b.Property<int>("SenderId")
-                        .HasColumnType("integer")
-                        .HasColumnName("sender_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_chat_histories");
-
-                    b.HasIndex("ProjectId")
-                        .HasDatabaseName("ix_chat_histories_project_id");
-
-                    b.HasIndex("ReceiverId")
-                        .HasDatabaseName("ix_chat_histories_receiver_id");
-
-                    b.HasIndex("SenderId")
-                        .HasDatabaseName("ix_chat_histories_sender_id");
-
-                    b.ToTable("chat_histories", (string)null);
                 });
 
             modelBuilder.Entity("Teapot.Entities.Concrete.Invite", b =>
@@ -384,36 +346,6 @@ namespace Teapot.DataAccess.Migrations
                     b.Navigation("Contributer");
 
                     b.Navigation("ProjectOwner");
-                });
-
-            modelBuilder.Entity("Teapot.Entities.Concrete.ChatHistory", b =>
-                {
-                    b.HasOne("Teapot.Entities.Concrete.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_chat_histories_projects_project_id");
-
-                    b.HasOne("Teapot.Entities.Concrete.AppUser", "Receiver")
-                        .WithMany()
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_chat_histories_users_receiver_id");
-
-                    b.HasOne("Teapot.Entities.Concrete.AppUser", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_chat_histories_users_sender_id");
-
-                    b.Navigation("Project");
-
-                    b.Navigation("Receiver");
-
-                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("Teapot.Entities.Concrete.Invite", b =>

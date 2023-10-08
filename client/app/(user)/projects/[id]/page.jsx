@@ -1,26 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Details from "../../../_components/projects/Details";
 import Contributers from "../../../_components/projects/Contributers";
 import ChatModal from "../../../_components/ChatModal";
 import { BsFillChatLeftFill } from "react-icons/bs";
-
-const project = {
-  id: 2,
-  title: "Proje 1",
-  description:
-    "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum eius accusantium laborum quae neque tenetur nisi perspiciatis labore  distinctio enim voluptatum iusto, sapiente quo ipsam at esse aperiam, saepe corporis explicabo odit corrupti voluptate perferendis. Voluptas consequuntur voluptatibus excepturi amet aperiam autem quas repellat ipsam omnis? Molestias laboriosam velit sunt tempora eaque nemoß doloremque a nulla, saepe cum rem repellat minus fugiat numquam iusto perferendis nostrum adipisci. Possimus fugiat voluptates perferendis repellendus. Recusandae harum omnis, asperiores vero odio tenetur quo, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cum eius accusantium laborum quae neque tenetur nisi perspiciatis labore  distinctio enim voluptatum iusto, sapiente quo ipsam at esse aperiam, saepe corporis explicabo odit corrupti voluptate perferendis. Voluptas consequuntur voluptatibus excepturi amet aperiam autem quas repellat ipsam omnis? Molestias laboriosam velit sunt tempora eaque nemoß doloremque a nulla, saepe cum rem repellat minus fugiat numquam iusto perferendis nostrum adipisci. Possimus fugiat voluptates perferendis repellendus. Recusandae harum omnis, asperiores vero odio tenetur quo",
-  owner: "John Uysal",
-  contributers: ["Jane Karyagdi", "Alice Demir"],
-  projectURL: "https://github.com",
-  geographicScope: "Istanbul",
-  projectStatus: "Active - not recruiting volunteers",
-  startDate: "2021-10-10",
-  projectContact: "Wade.L.Eakle@spd02.usace.army.com",
-  sponsors: ["John Uysal", "Jane Karyagdi", "Alice Demir"],
-  fieldsOfScience: ["Computer Science", "Mathematics"],
-  intentedOutcomes: ["Software", "Hardware", "Civic"],
-};
+import { getProject } from "../../../_api/projects";
 
 const messages = [
   { id: 1, text: "Merhaba, nasıl yardımcı olabilirim?", senderId: 1 },
@@ -78,8 +62,11 @@ const messages = [
 
 const ProjectDetail = ({ params }) => {
   const [openChatModal, setOpenChatModal] = useState(false);
+  const [project, setProject] = useState({});
 
-  console.log("oarams", params);
+  useEffect(() => {
+    getProject(params.id).then((res) => setProject(res.data.data));
+  }, [params]);
 
   const supportProject = () => {
     console.log("support project");

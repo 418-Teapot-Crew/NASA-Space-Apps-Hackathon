@@ -1,13 +1,19 @@
 "use client";
+import toast from "react-hot-toast";
+import { addFile } from "../../../_api/projectImages";
 import { createProject } from "../../../_api/projects";
 import ParticleBg from "../../../_components/ParticleBg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiCloudUpload } from "react-icons/bi";
+import { useRouter } from "next/navigation";
+import { useAuthContext } from "../../../_contexts/AuthContext";
 
 const AddProject = () => {
   const [values, setValues] = useState({});
   const [file, setFile] = useState();
   const [fileUrl, setFileUrl] = useState("");
+  const router = useRouter();
+  const { state, dispatch } = useAuthContext();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -18,20 +24,25 @@ const AddProject = () => {
     setFileUrl(url);
   };
 
+  useEffect(() => {
+    setValues({
+      ...values,
+      ["ownerId"]: state.user.id,
+    });
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      setValues({
-        ...values,
-        ["ownerId"]: ,
-      });
       const formData = new FormData();
       const res = await createProject(values);
-      console.log(res.data);
+      formData.append("file", file);
+      await addFile(res.data.data.id, formData);
+      router.push("/");
     } catch (error) {
       console.log(error);
     }
-    console.log(values);
   };
 
   const handleChange = (event) => {
@@ -110,7 +121,7 @@ const AddProject = () => {
             />
           </label>
         </div>
-        <input type="file" name="" className="" placeholder="documents" id="" />
+        {/* <input type="file" name="" className="" placeholder="documents" id="" /> */}
         <button className="bg-black text-white p-4 rounded-lg">Submit</button>
       </form>
     </div>

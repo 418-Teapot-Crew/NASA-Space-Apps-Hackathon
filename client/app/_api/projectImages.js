@@ -1,5 +1,6 @@
 import { instance as axios } from "./axiosInstance";
 
-const postImage = () => axios.post("/project-images");
+const addFile = (id, values) =>
+  axios.post(`/api/ProjectFiles/upload/${id}`, values);
 
-export { postImage };
+export { addFile };

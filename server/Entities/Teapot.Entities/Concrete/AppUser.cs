@@ -5,6 +5,6 @@ namespace Teapot.Entities.Concrete
     public class AppUser : User
     {
         public ICollection<ProjectContributor> Projects { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

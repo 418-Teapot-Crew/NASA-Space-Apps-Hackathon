@@ -7,7 +7,7 @@ const ParticleBg = () => {
   const path = usePathname();
   return (
     <ParticlesBg
-      color={path === "/" ? "#0728AF" : "#C2021D"}
+      color={path === "/" ? "#375bec" : "#C2021D"}
       num={75}
       type="cobweb"
       bg={true}

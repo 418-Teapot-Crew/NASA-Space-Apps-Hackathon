@@ -29,7 +29,8 @@ export default function Home() {
         className=" flex flex-1 flex-col gap-4 text-center  text-black "
       >
         <h1 className="m-0 font-extrabold text-6xl">
-          <i>Let's</i> Explore Open Science Together
+          <i className="">Let's</i> Explore{" "}
+          <span className="text-[#375bec]">Open Science</span> Together
         </h1>
         <p className="m-0 font-light italic text-2xl">
           "Connecting Minds, Building Futures: Uniting Open Science Innovators
@@ -39,14 +40,14 @@ export default function Home() {
           {!state?.isLoggedIn ? (
             <Link
               href={"/signup"}
-              className="bg-white border-2 border-[#0728AF] text-[#0728AF] hover:text-white hover:bg-[#0728AF] rounded-md py-1.5 px-5 transition-all duration-200"
+              className="bg-white border-2 border-[#375bec] text-[#375bec] hover:text-white hover:bg-[#375bec] rounded-md py-1.5 px-5 transition-all duration-200"
             >
               Get Started
             </Link>
           ) : (
             <Link
               href={"/explore"}
-              className="bg-white border-2 border-[#0728AF] text-[#0728AF] hover:text-white hover:bg-[#0728AF] rounded-md py-1.5 px-5 transition-all duration-200"
+              className="bg-white border-2 border-[#375bec] text-[#375bec] hover:text-white hover:bg-[#375bec] rounded-md py-1.5 px-5 transition-all duration-200"
             >
               Explore the Open Science
             </Link>

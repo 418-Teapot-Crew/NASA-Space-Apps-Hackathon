@@ -1,21 +1,33 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getUser } from "../../_api/user";
+import { getUser, putUser } from "../../_api/user";
 import { useAuthContext } from "../../_contexts/AuthContext";
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
   const { state } = useAuthContext();
 
-  useEffect(() => {
-    getUser(state?.user?.id).then((res) => setProfile(res.data.data));
-  }, []);
-
-  const handleSubmit = () => {
-    console.log(profile);
+  const fetchProfile = async () => {
+    try {
+      const res = await getUser(state?.user?.id);
+      setProfile(res.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  console.log(profile);
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const handleSubmit = async () => {
+    try {
+      const res = await putUser(state?.user?.id, profile);
+      if (res.success) setProfile(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <div className="flex-1 flex flex-col gap-3  self-start">
@@ -62,7 +74,7 @@ const Profile = () => {
         type="button"
         onClick={() => handleSubmit()}
       >
-        Submit
+        Save Profile
       </button>
     </div>
   );

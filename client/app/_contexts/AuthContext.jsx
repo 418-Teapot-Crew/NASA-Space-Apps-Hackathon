@@ -25,6 +25,10 @@ export const reducer = (state, action) => {
         "isLoggedIn",
         JSON.stringify(action.payload.isLoggedIn)
       );
+      localStorage.setItem(
+        "token",
+        action?.payload?.token
+      );
       const user = jwtDecode(action?.payload?.token);
       const userObj = {
         id: user[

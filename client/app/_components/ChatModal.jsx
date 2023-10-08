@@ -1,13 +1,42 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { BsSendFill } from "react-icons/bs";
+import * as signalR from "@microsoft/signalr";
+import { getMessages } from "../_api/projects";
 
-const ChatModal = ({ closeModal, messages }) => {
+const ChatModal = ({ closeModal, projectId }) => {
+  const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
+  useEffect(() => {
+    getMessages(projectId).then((data) => {
+      console.log("data.data.data", data.data.data);
+      setMessages(data.data.data);
+    });
+  }, [projectId]);
+
+  let signalRConnection = new signalR.HubConnectionBuilder()
+    .withUrl("https://localhost:44364/chatHub", {
+      accessTokenFactory: () => {
+        return localStorage.getItem("token");
+      },
+    })
+    .build();
+
+  signalRConnection.on("ChatChannel", function (message) {
+    setMessages([...messages, { message: message, mine: false }]);
+  });
+
+  signalRConnection
+    .start()
+    .then(function () {})
+    .catch(function (err) {
+      return console.error("signal hata", err.toString());
+    });
 
   const handleSendMessage = () => {
-    console.log(message);
+    signalRConnection.invoke("SendMessage", message, projectId);
+    setMessages([...messages, { message: message, mine: true }]);
     setMessage("");
   };
 
@@ -21,21 +50,21 @@ const ChatModal = ({ closeModal, messages }) => {
           />
         </div>
         <div className="flex-1  bg-gray-100 overflow-y-scroll flex flex-col">
-          {messages.map((message) => (
+          {messages?.map((message) => (
             <div
               key={message.id}
               className={`flex gap-3 items-center px-5 py-3 ${
-                message.senderId === 1 ? "justify-end" : "justify-start"
+                message.mine ? "justify-end" : "justify-start"
               }`}
             >
               <div
                 className={`${
-                  message.senderId === 1
+                  message.mine
                     ? "bg-blue-600 text-white rounded-tl rounded-br"
                     : "bg-white text-black rounded-tr rounded-bl"
                 } px-3 py-2`}
               >
-                {message.text}
+                {message.message}
               </div>
             </div>
           ))}

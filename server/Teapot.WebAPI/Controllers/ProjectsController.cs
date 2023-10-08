@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Teapot.Business.Concrete.Users.Dto;
-using Teapot.Business.Concrete.Users;
-using Teapot.Entities.Concrete;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Teapot.Business.Concrete.Projects;
 using Teapot.Business.Concrete.Projects.Dto;
 
@@ -45,6 +43,17 @@ namespace Teapot.WebAPI.Controllers
         public async Task<IActionResult> GetAll()
         {
             var result = await _projectService.GetAll();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [Authorize, HttpGet("getMessages/{projectId}")]
+        public async Task<IActionResult> GetMessages([FromRoute] int projectId)
+        {
+            var result = await _projectService.GetMessages(projectId);
             if (result.Success)
             {
                 return Ok(result);

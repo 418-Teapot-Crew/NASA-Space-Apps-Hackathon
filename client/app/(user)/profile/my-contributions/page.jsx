@@ -8,7 +8,7 @@ const MyContributions = () => {
   useEffect(() => {}, [state]);
 
   return (
-    <div className="flex gap-5 flex-col  flex-1">
+    <div className="flex gap-5 flex-col  flex-1 self-start">
       <div className="flex flex-col h-1/2 overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-lg text-center text-gray-500 ">
           <thead className="text-sm font-extrabold tracking-wide text-center text-gray-700 uppercase bg-gray-200 ">

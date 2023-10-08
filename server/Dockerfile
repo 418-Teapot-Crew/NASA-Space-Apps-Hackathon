@@ -2,8 +2,8 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-# EXPOSE 80
-# EXPOSE 443
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
@@ -18,11 +18,9 @@ WORKDIR "/src/Teapot.WebAPI"
 RUN dotnet build "Teapot.WebAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
-# RUN dotnet publish "Teapot.WebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
-RUN dotnet publish "Teapot.WebAPI.csproj" -r linux-x64 -c Release --self-contained false -o /app/publish
+RUN dotnet publish "Teapot.WebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENV ASPNETCORE_URLS="http://*:1453"
 ENTRYPOINT ["dotnet", "Teapot.WebAPI.dll"]

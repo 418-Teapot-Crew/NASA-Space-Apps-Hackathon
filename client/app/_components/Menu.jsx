@@ -22,7 +22,7 @@ const Menu = () => {
   useEffect(() => setIsOpen(false), [path]);
 
   return (
-    <div>
+    <div className="pt-5">
       <button onClick={toggle}>
         <CgMenuMotion
           className={` ${path === "/" ? "text-navbar" : "text-black"}`}
@@ -44,9 +44,15 @@ const Menu = () => {
                 <div className="w-[100px] h-auto">
                   <img src="/assets/team-logo.png" alt="" />
                 </div>
-                <h1 className="text-4xl font-bold tracking-wider">
-                  418 Teapot
-                </h1>
+                {state?.isLoggedIn ? (
+                  <h1 className="text-4xl font-bold tracking-wider">
+                    Researcher {state?.user?.fullName}
+                  </h1>
+                ) : (
+                  <h1 className="text-4xl font-bold tracking-wider">
+                    418 Teapot
+                  </h1>
+                )}
               </div>
 
               <button onClick={toggle}>
@@ -56,11 +62,6 @@ const Menu = () => {
             <div className="flex flex-row h-[75vh] w-full justify-around items-center">
               <div>
                 <ul className="flex gap-6 text-6xl flex-col items-center">
-                  <li>
-                    <Link className="custom-link" href={"/"}>
-                      Home
-                    </Link>
-                  </li>
                   {state?.isLoggedIn ? (
                     <>
                       <li>
@@ -92,6 +93,11 @@ const Menu = () => {
                       </li>
                     </>
                   )}
+                  <li>
+                    <Link className="custom-link" href={"/"}>
+                      Home
+                    </Link>
+                  </li>
 
                   <li>
                     <Link className="custom-link" href={"/explore"}>

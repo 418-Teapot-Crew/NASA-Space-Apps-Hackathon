@@ -95,6 +95,7 @@ namespace Teapot.Business.Concrete.Users
                     Id = userToUpdate.Id,
                     FirstName = userToUpdate.FirstName,
                     LastName = userToUpdate.LastName,   
+                    Description = userToUpdate.Description,
                    Email = userToUpdate.Email,
                    Status = userToUpdate.Status
                 },"user updated");

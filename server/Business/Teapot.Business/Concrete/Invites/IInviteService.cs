@@ -19,6 +19,7 @@ namespace Teapot.Business.Concrete.Invites
         Task<IDataResult<List<InviteListDto>>> GetAll();
         Task<IResult> Delete(int id);
         Task<IDataResult<InviteListDto>> Update(int id, UpdateInviteDto updateInviteDto);
+        Task<IDataResult<InviteListDto>> GetInvitesByContributorIdAndProjectId(int contributorId, int projectId);
 
     }
 }

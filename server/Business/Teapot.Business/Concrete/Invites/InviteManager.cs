@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Teapot.Business.Concrete.Chats.Dto;
 using Teapot.Business.Concrete.Invites.Dto;
+using Teapot.Business.Concrete.ProjectContributors;
+using Teapot.Business.Concrete.ProjectContributors.Dto;
 using Teapot.Business.Concrete.Projects.Dto;
 using Teapot.Business.Concrete.Users.Dto;
 using Teapot.Core.Utilities.Results;
@@ -19,10 +21,12 @@ namespace Teapot.Business.Concrete.Invites
     {
 
         private readonly Teapot418DbContext _context;
+        private readonly IProjectContributorService _projectContributorService;
 
-        public InviteManager(Teapot418DbContext context)
+        public InviteManager(Teapot418DbContext context, IProjectContributorService projectContributorService)
         {
             _context = context;
+            _projectContributorService = projectContributorService;
         }
 
         public async Task<IResult> Add(AddInviteDto addInviteDto)
@@ -86,28 +90,46 @@ namespace Teapot.Business.Concrete.Invites
             return new ErrorDataResult<InviteListDto>("invite cannot get");
         }
 
+        public async  Task<IDataResult<InviteListDto>> GetInvitesByContributorIdAndProjectId(int contributorId, int projectId)
+        {
+            var invite = await _context.Invites.Where(i=> i.Id == contributorId && i.ProjectId == projectId).FirstOrDefaultAsync();
+            if (invite != null)
+            {
+                var inviteDto = new InviteListDto
+                {
+                    Id = invite.Id,
+                    ProjectId = invite.ProjectId,
+                    ContributorId = invite.ContributorId,
+                    Status = invite.Status
+                };
+                return new SuccessDataResult<InviteListDto>(inviteDto, "invite get");
+            }
+            return new ErrorDataResult<InviteListDto>("no invite for this project");
+        }
+
         public async Task<IDataResult<InviteListDto>> Update(int id, UpdateInviteDto updateInviteDto)
         {
             var inviteToUpdate = await _context.Invites.Where(p => p.Id == id).FirstOrDefaultAsync();
             if (inviteToUpdate != null)
             {
                 inviteToUpdate.Status = updateInviteDto.Status;
-                //TODO: PROJEYE CONTRİBUTOR EKLENECEK
+                if (updateInviteDto.Status) { 
+                    await _projectContributorService.Add(new AddProjectContributorDto { ContributorId = inviteToUpdate.ContributorId, ProjectId = inviteToUpdate.ProjectId });
+                }
                 _context.Invites.Update(inviteToUpdate);
                 await _context.SaveChangesAsync();
                 var inviteDto = new InviteListDto
                 {
                     Id = inviteToUpdate.Id,
                     ProjectId = inviteToUpdate.ProjectId,
-                    Project = new ProjectListDto { Id = inviteToUpdate.Project.Id, Title = inviteToUpdate.Project.Title, Description = inviteToUpdate.Project.Description, OwnerId = inviteToUpdate.Project.OwnerId, Contributors = inviteToUpdate.Project.Contributors.Select(x => new ProjectListContributorDto { Id = x.Id, Email = x.Contributor.Email, LastName = x.Contributor.LastName, FirstName = x.Contributor.FirstName }) },
                     ContributorId = inviteToUpdate.ContributorId,
-                    Contributor = new ContributorListDto { Id = inviteToUpdate.ContributorId, Email = inviteToUpdate.Contributor.Email, FirstName = inviteToUpdate.Contributor.FirstName, LastName = inviteToUpdate.Contributor.LastName },
                     Status = inviteToUpdate.Status
                 };
                 return new SuccessDataResult<InviteListDto>(inviteDto, "invite updated");
             }
             return new ErrorDataResult<InviteListDto>("invite cannot updated");
         }
+
 
     }
 }

@@ -23,7 +23,7 @@ namespace Teapot.Business.Concrete.Projects
 
         public async Task<IDataResult<Project>> Add(AddProjectDto addProjectDto)
         {
-            var projectToAdd = await _context.Projects.AddAsync(new Project() {Title = addProjectDto.Title, Description = addProjectDto.Description,OwnerId = addProjectDto.OwnerId });
+            var projectToAdd = await _context.Projects.AddAsync(new Project() {Title = addProjectDto.Title, Description = addProjectDto.Description,OwnerId = addProjectDto.OwnerId, ProjectUrl = addProjectDto.ProjectUrl});
             await _context.SaveChangesAsync();
             return new SuccessDataResult<Project>(projectToAdd.Entity, "project added");
         }
@@ -65,14 +65,21 @@ namespace Teapot.Business.Concrete.Projects
             return new ErrorDataResult<List<ProjectListDto>>("projects cannot listed");
         }
 
-        public async Task<IDataResult<Project>> GetById(int id)
+        public async Task<IDataResult<ProjectListDto>> GetById(int id)
         {
-            var user = await _context.Projects.Where(u => u.Id == id).FirstOrDefaultAsync();
+            var user = await _context.Projects.Where(u => u.Id == id).Select(u=> new ProjectListDto {
+                Id = u.Id,
+                Description = u.Description,
+                OwnerId = u.OwnerId,
+                Title = u.Title, 
+                Contributors = u.Contributors.Select(u => new ProjectListContributorDto { Id = u.ContributorId,Email = u.Contributor.Email,FirstName = u.Contributor.FirstName,LastName = u.Contributor.LastName,}),
+                Owner = new ProjectListOwnerDto { Id = u.Owner.Id, FirstName = u.Owner.FirstName, LastName = u.Owner.LastName ,Email = u.Owner.Email},
+            }).FirstOrDefaultAsync();
             if (user != null)
             {
-                return new SuccessDataResult<Project>(user, "project get");
+                return new SuccessDataResult<ProjectListDto>(user, "project get");
             }
-            return new ErrorDataResult<Project>("project cannot get");
+            return new ErrorDataResult<ProjectListDto>("project cannot get");
         }
 
         public async Task<IDataResult<Project>> Update(int id, UpdateProjectDto updateProjectDto)

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Teapot.DataAccess.Contexts;
@@ -11,9 +12,11 @@ using Teapot.DataAccess.Contexts;
 namespace Teapot.DataAccess.Migrations
 {
     [DbContext(typeof(Teapot418DbContext))]
-    partial class Teapot418DbContextModelSnapshot : ModelSnapshot
+    [Migration("20231007230008_anotherrr")]
+    partial class anotherrr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,6 +227,7 @@ namespace Teapot.DataAccess.Migrations
                         .HasColumnName("description");
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("image_url");
 

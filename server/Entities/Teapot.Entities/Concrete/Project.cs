@@ -9,7 +9,11 @@ namespace Teapot.Entities.Concrete
         public string Description { get; set; }
         public int OwnerId { get; set; }
         public AppUser Owner { get; set; }
+        public DateTime Date { get; set; }
+        public string  ProjectUrl { get; set; }
+        public string? ImageUrl { get; set; }
+        public bool Status { get; set; }
         public ICollection<ProjectContributor> Contributors { get; set; }
     }
 }
-// tarih, fotoğraf, 
+

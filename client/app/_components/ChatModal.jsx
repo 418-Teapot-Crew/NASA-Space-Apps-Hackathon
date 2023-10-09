@@ -5,10 +5,58 @@ import { BsSendFill } from "react-icons/bs";
 import * as signalR from "@microsoft/signalr";
 import { getMessages } from "../_api/projects";
 
+const messagesArray = [
+  {
+    sender_id: 1,
+    message:
+      "Hello! Welcome to our website. I noticed that you're interested in supporting our scientific project. How can I assist you?",
+  },
+  {
+    sender_id: 2,
+    message:
+      "Hello! I've been looking into your projects, and they really caught my attention. I'd like to learn more about how I can support them.",
+  },
+  {
+    sender_id: 1,
+    message:
+      "Thank you for your interest! What area of our projects are you interested in? Biology, physics, chemistry, or another field?",
+  },
+  {
+    sender_id: 2,
+    message:
+      "Biology is quite fascinating to me. Could you provide more information about your biology projects?",
+  },
+  {
+    sender_id: 1,
+    message:
+      "Certainly! Here are a few of our biology projects: 1. Genetic Research 2. Ecosystem Studies 3. Biomedical Engineering Projects. Which one would you like to explore further?",
+  },
+  {
+    sender_id: 2,
+    message:
+      "Genetic research looks really interesting. How can I contribute to this project?",
+  },
+  {
+    sender_id: 1,
+    message:
+      "Great choice! There are several ways you can contribute to our genetic research project. You can make a donation, participate in laboratory experiments, or share your expertise in data analysis. Could you please tell me more about how you'd like to contribute?",
+  },
+  {
+    sender_id: 2,
+    message:
+      "I'd like to participate in laboratory experiments. How can I apply for that?",
+  },
+  {
+    sender_id: 1,
+    message:
+      "Excellent! To participate in laboratory experiments, you'll need to fill out an application form first.",
+  },
+];
+
 const ChatModal = ({ closeModal, projectId }) => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(messagesArray);
   const [message, setMessage] = useState("");
-  useEffect(() => {
+  /*   useEffect(() => {
     getMessages(projectId).then((data) => {
       console.log("data.data.data", data.data.data);
       setMessages(data.data.data);
@@ -38,7 +86,7 @@ const ChatModal = ({ closeModal, projectId }) => {
     signalRConnection.invoke("SendMessage", message, projectId);
     setMessages([...messages, { message: message, mine: true }]);
     setMessage("");
-  };
+  }; */
 
   return (
     <div className="fixed top-0 left-0 z-[100] bg-black bg-opacity-30 w-full h-full flex justify-center items-center">
@@ -54,12 +102,12 @@ const ChatModal = ({ closeModal, projectId }) => {
             <div
               key={message.id}
               className={`flex gap-3 items-center px-5 py-3 ${
-                message.mine ? "justify-end" : "justify-start"
+                message.sender_id === 2 ? "justify-end" : "justify-start"
               }`}
             >
               <div
                 className={`${
-                  message.mine
+                  message.sender_id === 1
                     ? "bg-blue-600 text-white rounded-tl rounded-br"
                     : "bg-white text-black rounded-tr rounded-bl"
                 } px-3 py-2`}

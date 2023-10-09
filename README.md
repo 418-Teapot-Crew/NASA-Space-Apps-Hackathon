@@ -50,6 +50,10 @@ Our platform offers a seamless process for project submission and collaboration.
 
 <br>
 
+[Project Presentation](https://docs.google.com/presentation/d/1YHf-KX24UWrnEGlsdAfaMpGfR6BBbG80/edit?usp=sharing&ouid=113200277405704067523&rtpof=true&sd=true).
+
+<br>
+
 <hr>
 
 ![](project-images/register.png)

@@ -48,13 +48,11 @@ Our platform offers a seamless process for project submission and collaboration.
 [Topic Modeling for Research Articles](https://www.kaggle.com/datasets/blessondensil294/topic-modeling-for-research-articles?select=train.csv).
 [Doc2Vec Model](https://radimrehurek.com/gensim/auto_examples/tutorials/run_doc2vec_lee.html#sphx-glr-auto-examples-tutorials-run-doc2vec-lee-py).
 
-<br>
+<hr>
 
 ## PROJECT PRESENTATION
 
 [A Marketplace for Open Science Projects](https://docs.google.com/presentation/d/1YHf-KX24UWrnEGlsdAfaMpGfR6BBbG80/edit?usp=sharing&ouid=113200277405704067523&rtpof=true&sd=true)
-
-<br>
 
 <hr>
 
@@ -83,8 +81,6 @@ Our platform offers a seamless process for project submission and collaboration.
 <br>
 
 ![](project-images/projects-searched.png)
-<br>
-
 <br>
 
 ![](project-images/projects.gif)
